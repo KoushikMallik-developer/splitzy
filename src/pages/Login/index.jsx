@@ -4,6 +4,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FaRegEyeSlash, FaRegEye } from "react-icons/fa";
+import profilepic from "../../assets/logo.png";
 // import { loginStart, loginSuccess, loginFailure } from '../../store/slices/authSlice';
 
 const Login = () => {
@@ -48,6 +49,11 @@ const Login = () => {
     <div className="min-h-screen flex justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full space-y-8">
         <div>
+          <img
+            src={profilepic}
+            alt="Logo"
+            className="h-32 w-32 text-blue-500 mt-3 mx-auto"
+          />
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
             Sign in to your account
           </h2>
