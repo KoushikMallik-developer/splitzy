@@ -1,0 +1,136 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* body {
+  font-family: "Space Grotesk", sans-serif;
+  background-color: #d4c6da;
+}
+
+h2 {
+  @apply text-xl md:text-4xl
+}
+
+p {
+  @apply text-xl tracking-tight leading-relaxed
+}
+
+span {
+  @apply text-purple-600
+}
+
+
+.shiny-effect {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 1;
+  background: radial-gradient(circle, rgba(178, 19, 202, 0.2), transparent 70%);
+}
+
+.bg-primary-color {
+    @apply bg-purple-600
+} */
+
+body {
+  font-family: 'Poppins', sans-serif;
+  @apply antialiased;
+}
+
+/* Hero Section Styles */
+.hero-pattern {
+  background-image: url('/pattern.png');
+  background-repeat: repeat;
+  background-opacity: 0.1;
+}
+
+/* Smooth Scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Service Cards Hover Effect */
+.service-card {
+  @apply transition-transform duration-300;
+}
+
+.service-card:hover {
+  transform: translateY(-5px);
+}
+
+/* Button Animations */
+button {
+  @apply transition-all duration-300;
+}
+
+/* Testimonial Card Styles */
+.testimonial-card {
+  @apply transition-all duration-300;
+}
+
+.testimonial-card:hover {
+  @apply shadow-lg;
+}
+
+/* Image Placeholder Styles */
+.doctor-image {
+  @apply bg-gradient-to-r from-blue-100 to-blue-200;
+}
+
+/* Contact Form Inputs */
+input,
+textarea {
+  @apply transition-all duration-300;
+}
+
+input:focus,
+textarea:focus {
+  @apply ring-2 ring-blue-500;
+}
+
+/* Footer Link Hover */
+.footer-link {
+  @apply transition-colors duration-200;
+}
+
+.footer-link:hover {
+  @apply text-blue-300;
+}
+
+/* Navigation Active State */
+.nav-link.active {
+  @apply text-blue-600 font-medium;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .container {
+    @apply px-4;
+  }
+}
+
+/* Loading Animation */
+.loading-spinner {
+  @apply animate-spin;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-gray-100;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-blue-500 rounded-full;
+}
+
+/* Print Styles */
+@media print {
+  .no-print {
+    display: none;
+  }
+}
