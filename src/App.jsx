@@ -1,0 +1,39 @@
+import Header from "./components/Header/index.jsx";
+import Footer from "./components/Footer/index.jsx";
+// import { Toaster } from "react-hot-toast";
+// import { useEffect } from "react";
+import { Outlet } from "react-router-dom";
+// import { useDispatch } from "react-redux";
+// import { resetMessages } from "./store/userSlice.js";
+
+function App() {
+  // const dispatch = useDispatch();
+  // const location = useLocation();
+
+  // useEffect(() => {
+  //   dispatch(resetMessages()); // Reset messages on route change
+  // }, [location.pathname, dispatch]); // Trigger when route changes
+
+  // useEffect(() => {
+  //   document.title = import.meta.env.VITE_APP_TITLE || "Splitzy";
+  // }, []);
+
+  return (
+    <>
+      {/* <GlobalProvider> */}
+      <Header />
+      <main >
+        <Outlet />
+      </main>
+      <Footer />
+      {/* <Toaster
+        position="top-right"
+        toastOptions={{
+          duration: 3500,
+        }}
+      /> */}
+    </>
+  );
+}
+
+export default App;
