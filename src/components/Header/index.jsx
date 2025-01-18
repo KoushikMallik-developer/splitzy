@@ -100,7 +100,7 @@ const Header = () => {
                 <DarkModeSwitcher />
                 <Link
                   to="/login"
-                  className="text-gray-600 hover:text-blue-500 px-1 sm:px-4 py-2 text-sm font-medium"
+                  className="text-gray-600 hover:text-blue-500 px-1 sm:px-4 py-2 text-sm font-medium dark:text-white"
                 >
                   Login
                 </Link>
