@@ -1,5 +1,4 @@
 import React, { Children } from "react";
-import { FaGoogle } from "react-icons/fa";
 import { Outlet } from "react-router-dom";
 
 const LoginPage = ({ children }) => {

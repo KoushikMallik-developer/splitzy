@@ -5,32 +5,17 @@ const DefaultLayout = () => {
   const isMobile = useMediaQuery({ query: "(max-width: 640px)" });
 
   return (
-    <div className="container mx-auto mt-5 text-center">
-      <div className="flex flex-wrap">
-        {/* Left Menu */}
-        <div
-          className={`w-full ${isMobile ? "hidden" : "lg:w-1/6"} bg-gray-100 dark:bg-gray-800`}
-        >
-          <div className="p-4 h-screen">Left Menu</div>
-        </div>
-
+    <div className="container mx-auto mt-5 p-4">
+      <div className={`flex flex-wrap ${isMobile ? "justify-center" : "justify-between"}`}>
         {/* Main Content */}
-        <div
-          className={`${isMobile ? "w-full" : "lg:w-4/6"} bg-white dark:bg-gray-900`}
-        >
+        <div className="w-full bg-white dark:bg-gray-900 rounded-lg shadow-lg p-6">
           <div className="p-4">
             <Outlet />
           </div>
-        </div>
-
-        {/* Right Menu */}
-        <div
-          className={`w-full ${isMobile ? "hidden" : "lg:w-1/6"} bg-gray-100 dark:bg-gray-800`}
-        >
-          <div className="p-4 h-screen">Right Menu</div>
         </div>
       </div>
     </div>
   );
 };
+
 export default DefaultLayout;
