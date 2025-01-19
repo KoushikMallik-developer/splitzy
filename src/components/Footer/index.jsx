@@ -9,7 +9,7 @@ import {
 
 export default function Footer() {
   return (
-    <div className="w-full mt-2 p-0">
+    <div className="w-full p-0">
       <div className="bg-gray-900 text-white">
         <div className="container mx-auto px-4 py-3">
           <section className="flex justify-center mb-3 space-x-4">

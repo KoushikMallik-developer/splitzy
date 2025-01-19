@@ -1,9 +1,16 @@
 import { createBrowserRouter } from "react-router-dom";
 import App from "../App";
-import HomePage from "../pages/Home/index.jsx";
-import LoginPage from "../pages/Login/index.jsx";
 import RegisterPage from "../pages/Register/index.jsx";
-import DefaultLayout from "../layouts/Dashboard/index.jsx";
+import DefaultLayout from "../layouts/Default/index.jsx";
+import AuthLayout from "../layouts/Auth";
+import ProtectedRoute from "../layouts/Protected/index.jsx";
+import Header from "../components/Header/index.jsx";
+import Footer from "../components/Footer/index.jsx";
+import HomePage from "../pages/Home/index.jsx";
+import LoginPage from "../pages/Login/index.jsx"; // Ensure correct import
+import VerifyOTP from "../pages/VerifyOTP/index.jsx";
+import DashboardPage from "../pages/Dashboard"
+
 
 const router = createBrowserRouter([
   {
@@ -12,20 +19,32 @@ const router = createBrowserRouter([
     children: [
       {
         path: "",
-        element: <HomePage />,
+        element: (
+          <>
+            <Header />
+            <HomePage />
+            <Footer />
+          </>
+        ),
       },
       {
-        path: "login",
-        element: <LoginPage />,
+        path: "",
+        element: <AuthLayout />,
+        children: [
+          {
+            path: "login",
+            element: <LoginPage />, // Use correct component
+          },
+          {
+            path: "register",
+            element: <RegisterPage />,
+          },
+          {
+            path: "verify-otp",
+            element: <VerifyOTP />,
+          },
+        ],
       },
-      {
-        path: "register",
-        element: <RegisterPage />,
-      },
-      // {
-      //     path: 'verify-otp',
-      //     element: <VerifyOTP />,
-      // },
       // {
       //     path: "forgot-password",
       //     element: <ForgotPassword />
@@ -35,12 +54,16 @@ const router = createBrowserRouter([
       //     element : <ResetPassword/>
       // },
       {
-        path: "",
+        path: "user",
         element: <DefaultLayout />,
         children: [
           {
             path: "dashboard",
-            element: <>Hiinooobiesss</>,
+            element: (
+              <ProtectedRoute>
+                <DashboardPage/>
+              </ProtectedRoute>
+            ),
           },
         ],
       },

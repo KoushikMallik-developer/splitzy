@@ -1,9 +1,10 @@
 import React from "react";
 import profilepic from "../../assets/logo.png";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const HomePage = () => {
-  const isloggedIn = false;
+  const { isLoggedIn } = useSelector((state) => state.user);  
   return (
     <div className="container mx-auto px-4">
       <div className="flex flex-col md:flex-row items-center justify-center my-8 md:my-12 lg:my-20">
@@ -16,7 +17,7 @@ const HomePage = () => {
             We organize your bills, so you can chill.
           </p>
           <div className="mt-4 md:mt-5 lg:mt-8">
-            <Link to={isloggedIn ? "/dashboard" : "/register"}>
+            <Link to={isLoggedIn ? "/dashboard" : "/register"}>
               <button className="bg-blue-600 hover:bg-blue-700 text-white text-sm sm:text-base font-medium px-4 sm:px-5 md:px-6 py-2 rounded-md transition-colors">
                 Get Started
               </button>
