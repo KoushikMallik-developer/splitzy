@@ -1,49 +1,38 @@
-// src/components/auth/Login.jsx
-// import { useState } from 'react';
-// import { useDispatch, useSelector } from 'react-redux';
-import { useState } from "react";
+import { useState,useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { FaRegEyeSlash, FaRegEye, FaGoogle, FaFacebook } from "react-icons/fa";
 import profilepic from "../../assets/logo.png";
-// import { loginStart, loginSuccess, loginFailure } from '../../store/slices/authSlice';
+import { useNavigate } from "react-router-dom";
+import { loginUser } from "../../store/userSlice";
+import CustomMessage from "../../ui/CustomMessage";
 
 const Login = () => {
-  // const [formData, setFormData] = useState({
-  //   email: '',
-  //   password: '',
-  // });
-  // const dispatch = useDispatch();
-  // const navigate = useNavigate();
-  // const { loading, error } = useSelector((state) => state.auth);
-  console.log("Login page");
-  const error = false;
+  const { message, isLoading, token, statusCode } = useSelector(
+    (state) => state.user
+  );
+
+  const dispatch = useDispatch();
   const [showPassword, setShowPassword] = useState(false);
+  const navigate = useNavigate();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-  // const handleChange = (e) => {
-  //   setFormData({
-  //     ...formData,
-  //     [e.target.name]: e.target.value,
-  //   });
-  // };
+  const handleLogin = () => {
+    try {
+      dispatch(loginUser({ email, password }));
+    } catch {
+      console.log("error");
+    }
+  };
 
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-  //   dispatch(loginStart());
-  //   try {
-  //     // Replace with actual API call
-  //     const response = await fetch('/api/auth/login', {
-  //       method: 'POST',
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //       },
-  //       body: JSON.stringify(formData),
-  //     });
-  //     const data = await response.json();
-  //     dispatch(loginSuccess(data));
-  //     navigate('/dashboard');
-  //   } catch (error) {
-  //     dispatch(loginFailure(error.message));
-  //   }
-  // };
+  useEffect(() => {
+    if (token) {
+      const timer = setTimeout(() => {
+        navigate("/dashboard");
+      }, 200);
+      return () => clearTimeout(timer); // Cleanup timer on unmount
+    }
+  }, [token]);
 
   return (
     <div className="w-full lg:w-1/2 flex items-center justify-center p-8">
@@ -61,7 +50,7 @@ const Login = () => {
         <h1 className="text-2xl font-bold mb-8 text-center">
           Welcome to Splitzy
         </h1>
-
+        <CustomMessage message={message} statusCode={statusCode} />
         {/* {children} */}
         <form className="space-y-6">
           <div>
@@ -69,6 +58,8 @@ const Login = () => {
             <input
               type="email"
               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              onChange={(e) => setEmail(e.target.value)}
+              value={email}
             />
           </div>
 
@@ -78,6 +69,8 @@ const Login = () => {
               <input
                 type={showPassword ? "text" : "password"}
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
               />
               <button
                 type="button"
@@ -102,6 +95,8 @@ const Login = () => {
           <button
             type="submit"
             className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+            onClick={handleLogin}
+            disabled={isLoading}
           >
             Login
           </button>

@@ -1,10 +1,17 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import ClickOutside from '../ClickOutside';
-import UserOne from '../../assets/images/user/user-01.png';
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import ClickOutside from "../ClickOutside";
+import UserOne from "../../assets/images/user/user-01.png";
+import { useDispatch } from "react-redux";
+import { logout } from "../../store/userSlice";
 
 const DropdownUser = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const dispatch = useDispatch();
+
+  const handleLogout = async () => {
+    await dispatch(logout());
+  };
 
   return (
     <ClickOutside onClick={() => setDropdownOpen(false)} className="relative">
@@ -118,7 +125,10 @@ const DropdownUser = () => {
               </Link>
             </li>
           </ul>
-          <button className="flex items-center gap-3.5 px-6 py-4 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base dark:text-white">
+          <button
+            className="flex items-center gap-3.5 px-6 py-4 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base dark:text-white"
+            onClick={handleLogout}
+          >
             <svg
               className="fill-current"
               width="22"
@@ -140,7 +150,6 @@ const DropdownUser = () => {
           </button>
         </div>
       )}
-      {/* <!-- Dropdown End --> */}
     </ClickOutside>
   );
 };
