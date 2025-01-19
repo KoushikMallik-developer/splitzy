@@ -2,8 +2,7 @@
 // import { useState } from 'react';
 // import { useDispatch, useSelector } from 'react-redux';
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { FaRegEyeSlash, FaRegEye } from "react-icons/fa";
+import { FaRegEyeSlash, FaRegEye, FaGoogle, FaFacebook } from "react-icons/fa";
 import profilepic from "../../assets/logo.png";
 // import { loginStart, loginSuccess, loginFailure } from '../../store/slices/authSlice';
 
@@ -15,6 +14,7 @@ const Login = () => {
   // const dispatch = useDispatch();
   // const navigate = useNavigate();
   // const { loading, error } = useSelector((state) => state.auth);
+  console.log("Login page");
   const error = false;
   const [showPassword, setShowPassword] = useState(false);
 
@@ -46,65 +46,38 @@ const Login = () => {
   // };
 
   return (
-    <div className="min-h-screen flex justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-md w-full space-y-8">
-        <div>
-          <img
-            src={profilepic}
-            alt="Logo"
-            className="h-32 w-32 text-blue-500 mt-3 mx-auto"
-          />
-          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-            Sign in to your account
-          </h2>
-          <p className="mt-2 text-center text-sm text-gray-600">
-            Or{" "}
-            <Link
-              to="/register"
-              className="font-medium text-blue-600 hover:text-blue-500"
-            >
-              create a new account
-            </Link>
-          </p>
+    <div className="w-full lg:w-1/2 flex items-center justify-center p-8">
+      <div className="max-w-md w-full">
+        {/* Logo */}
+        <div className="flex justify-center mb-8">
+          <div className="relative w-32 h-32">
+            <img
+              className="absolute w-full h-full object-contain"
+              src={profilepic}
+            />
+          </div>
         </div>
-        <form
-          className="mt-8 space-y-6"
-          // onSubmit={handleSubmit}
-        >
-          {error && (
-            <div className="rounded-md bg-red-50 p-4">
-              <p className="text-sm text-red-700">{error}</p>
-            </div>
-          )}
-          <div className="rounded-md shadow-sm space-y-4">
-            <div>
-              <label htmlFor="email" className="sr-only">
-                Email address
-              </label>
-              <input
-                id="email"
-                name="email"
-                type="email"
-                required
-                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm transition duration-150 ease-in-out transform hover:scale-105"
-                placeholder="Email address"
-                // value={formData.email}
-                // onChange={handleChange}
-              />
-            </div>
+
+        <h1 className="text-2xl font-bold mb-8 text-center">
+          Welcome to Splitzy
+        </h1>
+
+        {/* {children} */}
+        <form className="space-y-6">
+          <div>
+            <label className="block text-sm font-medium mb-2">Email</label>
+            <input
+              type="email"
+              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium mb-2">Password</label>
             <div className="relative">
-              <label htmlFor="password" className="sr-only">
-                Password
-              </label>
               <input
-                id="password"
-                name="password"
                 type={showPassword ? "text" : "password"}
-                required
-                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm transition duration-150 ease-in-out transform hover:scale-105"
-                placeholder="Password"
-                // value={formData.password}
-                // onChange={handleChange}
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
               <button
                 type="button"
@@ -119,15 +92,34 @@ const Login = () => {
               </button>
             </div>
           </div>
-          <div>
-            <button
-              type="submit"
-              // disabled={loading}
-              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:bg-blue-300"
-            >
-              {"Sign in"}
-            </button>
+
+          <div className="text-right">
+            <a href="#" className="text-blue-500 hover:text-blue-600 text-sm">
+              Forgot password?
+            </a>
           </div>
+
+          <button
+            type="submit"
+            className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+          >
+            Login
+          </button>
+
+          <div className="relative my-6">
+            <div className="absolute inset-0 flex items-center">
+              <div className="w-full border-t border-gray-300" />
+            </div>
+            <div className="relative flex justify-center text-sm">
+              <span className="px-2 bg-white text-gray-500">OR</span>
+            </div>
+          </div>
+
+          {/* Social Login Buttons */}
+          <button className="w-full border border-gray-300 text-gray-700 py-2 px-4 rounded-md hover:bg-gray-50 flex items-center justify-center space-x-2 mb-3">
+            <FaGoogle size={20} />
+            <span>Sign in with Google </span>
+          </button>
         </form>
       </div>
     </div>

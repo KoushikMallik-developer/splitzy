@@ -4,6 +4,8 @@ import HomePage from "../pages/Home/index.jsx";
 import LoginPage from "../pages/Login/index.jsx";
 import RegisterPage from "../pages/Register/index.jsx";
 import DefaultLayout from "../layouts/Dashboard/index.jsx";
+import AuthLayout from "../layouts/Auth";
+import Login from "../pages/Login/index.jsx";
 
 const router = createBrowserRouter([
   {
@@ -15,13 +17,20 @@ const router = createBrowserRouter([
         element: <HomePage />,
       },
       {
-        path: "login",
-        element: <LoginPage />,
+        path: "",
+        element: <AuthLayout />,
+        children: [
+          {
+            path: "/login",
+            element: <Login />,
+          },
+          {
+            path: "register",
+            element: <RegisterPage />,
+          },
+        ],
       },
-      {
-        path: "register",
-        element: <RegisterPage />,
-      },
+
       // {
       //     path: 'verify-otp',
       //     element: <VerifyOTP />,
