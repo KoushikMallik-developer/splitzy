@@ -4,13 +4,10 @@ import RegisterPage from "../pages/Register/index.jsx";
 import DefaultLayout from "../layouts/Default/index.jsx";
 import AuthLayout from "../layouts/Auth";
 import ProtectedRoute from "../layouts/Protected/index.jsx";
-import Header from "../components/Header/index.jsx";
-import Footer from "../components/Footer/index.jsx";
 import HomePage from "../pages/Home/index.jsx";
 import LoginPage from "../pages/Login/index.jsx"; // Ensure correct import
 import VerifyOTP from "../pages/VerifyOTP/index.jsx";
-import DashboardPage from "../pages/Dashboard"
-
+import DashboardPage from "../pages/Dashboard";
 
 const router = createBrowserRouter([
   {
@@ -19,13 +16,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: "",
-        element: (
-          <>
-            <Header />
-            <HomePage />
-            <Footer />
-          </>
-        ),
+        element: <HomePage />,
       },
       {
         path: "",
@@ -61,7 +52,7 @@ const router = createBrowserRouter([
             path: "dashboard",
             element: (
               <ProtectedRoute>
-                <DashboardPage/>
+                <DashboardPage />
               </ProtectedRoute>
             ),
           },

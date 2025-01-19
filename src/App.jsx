@@ -20,7 +20,7 @@ function App() {
   return (
     <>
       {/* <GlobalProvider> */}
-      <main className="min-h-[78vh]">
+      <main>
         <Outlet />
       </main>
       <Toaster
