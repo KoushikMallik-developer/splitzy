@@ -7,10 +7,10 @@ import toast from 'react-hot-toast'
 
 export const registerUser = createAsyncThunk('registerUser', async (userData, thunkAPI) => {
     const payload = {
-        fname: userData['name'].split(' ')[0],
-        lname: userData['name'].split(' ')[1],
-        email: userData['email'],
-        password: userData['password'],
+        fname: userData.name.split(' ')[0],
+        lname: userData.name.split(' ')[1],
+        email: userData.email,
+        password: userData.password,
     }
     try {
         const response = await Axios({
@@ -42,7 +42,7 @@ export const verifyOtp = createAsyncThunk('verifyOtp', async ({ user_email, otp 
             data: otpData,
         })
         return {
-            access_token: response.data.token?.access,
+            token: response.data.token?.access,
             refresh: response.data.token?.refresh,
             message: response.data.message,
             statusCode: response.status,
@@ -113,6 +113,7 @@ const userSlice = createSlice({
     reducers: {
         resetMessages: (state) => {
             state.message = null
+            state.statusCode = null
             state.isLoading = false
         },
         logout: (state) => {

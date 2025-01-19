@@ -1,55 +1,49 @@
-// src/components/auth/Register.jsx
-// import { useState } from 'react';
-// import { useDispatch, useSelector } from 'react-redux';
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { FaRegEyeSlash, FaRegEye, FaGoogle, FaFacebook } from "react-icons/fa";
+import { FaRegEyeSlash, FaRegEye, FaGoogle } from "react-icons/fa";
 import profilepic from "../../assets/logo.png";
-// import { RegisterStart, RegisterSuccess, RegisterFailure } from '../../store/slices/authSlice';
+import { registerUser } from "../../store/userSlice";
+import toast from "react-hot-toast";
+import CustomMessage from "../../components/CustomMessage";
 
 const Register = () => {
-  // const [formData, setFormData] = useState({
-  //   email: '',
-  //   password: '',
-  // });
-  // const dispatch = useDispatch();
-  // const navigate = useNavigate();
-  // const { loading, error } = useSelector((state) => state.auth);
-  console.log("Login page");
-  const error = false;
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { message, isLoading, user_email, statusCode } = useSelector(
+    (state) => state.user
+  );
+
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
-  // const handleChange = (e) => {
-  //   setFormData({
-  //     ...formData,
-  //     [e.target.name]: e.target.value,
-  //   });
-  // };
+  const handleRegister = () => {
+    try {
+      // if (password !== confirmPassword) {
+      //   toast.error("Password Mismatch");
+      // } else {
+        dispatch(registerUser({ name, email, password }));
+      // }
+    } catch {
+      console.log("error");
+    }
+  };
 
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-  //   dispatch(loginStart());
-  //   try {
-  //     // Replace with actual API call
-  //     const response = await fetch('/api/auth/login', {
-  //       method: 'POST',
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //       },
-  //       body: JSON.stringify(formData),
-  //     });
-  //     const data = await response.json();
-  //     dispatch(loginSuccess(data));
-  //     navigate('/dashboard');
-  //   } catch (error) {
-  //     dispatch(loginFailure(error.message));
-  //   }
-  // };
+  useEffect(() => {
+    if (message && user_email) {
+      const timer = setTimeout(() => {
+        navigate("/verify-otp");
+      }, 200);
+      return () => clearTimeout(timer); // Cleanup timer on unmount
+    }
+  }, [message, user_email]);
 
   return (
     <div className="w-full lg:w-1/2 flex items-center justify-center p-8">
       <div className="max-w-md w-full">
-        {/* Logo */}
         <div className="flex justify-center mb-6">
           <div className="relative w-32 h-32">
             <img
@@ -62,21 +56,38 @@ const Register = () => {
         <h1 className="text-2xl font-bold mb-6 text-center">
           Welcome to Splitzy
         </h1>
+        <CustomMessage message={message} statusCode={statusCode} />
         <form className="space-y-6">
           <div>
-            <label className="block text-sm font-medium mb-1">Email</label>
+            <input
+              type="name"
+              placeholder="Full Name"
+              label="Full Name"
+              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            />
+          </div>
+          <div>
             <input
               type="email"
+              placeholder="Email Address"
+              label="Email address"
               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
             />
           </div>
 
-          <div>
-            <label className="block text-sm font-medium mb-1">Password</label>
-            <div className="relative">
+          <div className="flex flex-col lg:flex-row lg:space-x-4">
+            <div className="relative w-full lg:w-1/2">
               <input
                 type={showPassword ? "text" : "password"}
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                placeholder="Password"
+                label="Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
               />
               <button
                 type="button"
@@ -90,16 +101,14 @@ const Register = () => {
                 )}
               </button>
             </div>
-          </div>
-
-          <div>
-            <label className="block text-sm font-medium mb-1">
-              Confirm Password
-            </label>
-            <div className="relative">
+            <div className="relative w-full lg:w-1/2 mt-4 lg:mt-0">
               <input
                 type={showPassword ? "text" : "password"}
+                placeholder="Confirm Password"
+                label="Confirm Password"
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
               />
               <button
                 type="button"
@@ -124,8 +133,10 @@ const Register = () => {
           <button
             type="submit"
             className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+            disabled={isLoading}
+            onClick={handleRegister}
           >
-            Login
+            Register
           </button>
 
           <div className="relative my-6">

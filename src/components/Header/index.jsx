@@ -24,12 +24,8 @@ const Header = () => {
 
   const logged_in_pages = [
     { url: "dashboard", name: "Dashboard" },
-    { url: "profile", name: "Profile" },
     { url: "friends", name: "Friends" },
     { url: "groups", name: "Groups" },
-    { url: "features", name: "Features" },
-    { url: "pricing", name: "Pricing" },
-    { url: "faq", name: "FAQ" },
   ];
 
   const logged_out_pages = [

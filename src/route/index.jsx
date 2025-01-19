@@ -6,6 +6,7 @@ import RegisterPage from "../pages/Register/index.jsx";
 import DefaultLayout from "../layouts/Dashboard/index.jsx";
 import AuthLayout from "../layouts/Auth";
 import Login from "../pages/Login/index.jsx";
+import VerifyOTP from "../pages/VerifyOTP/index.jsx";
 
 const router = createBrowserRouter([
   {
@@ -28,13 +29,12 @@ const router = createBrowserRouter([
             path: "register",
             element: <RegisterPage />,
           },
+          {
+            path: "verify-otp",
+            element: <VerifyOTP />,
+          },
         ],
       },
-
-      // {
-      //     path: 'verify-otp',
-      //     element: <VerifyOTP />,
-      // },
       // {
       //     path: "forgot-password",
       //     element: <ForgotPassword />

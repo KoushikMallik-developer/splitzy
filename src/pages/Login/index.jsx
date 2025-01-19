@@ -1,10 +1,10 @@
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { FaRegEyeSlash, FaRegEye, FaGoogle, FaFacebook } from "react-icons/fa";
 import profilepic from "../../assets/logo.png";
 import { useNavigate } from "react-router-dom";
 import { loginUser } from "../../store/userSlice";
-import CustomMessage from "../../ui/CustomMessage";
+import CustomMessage from "../../components/CustomMessage";
 
 const Login = () => {
   const { message, isLoading, token, statusCode } = useSelector(
@@ -54,9 +54,10 @@ const Login = () => {
         {/* {children} */}
         <form className="space-y-6">
           <div>
-            <label className="block text-sm font-medium mb-2">Email</label>
             <input
               type="email"
+              placeholder="Email Address"
+              label="Email address"
               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               onChange={(e) => setEmail(e.target.value)}
               value={email}
@@ -64,11 +65,12 @@ const Login = () => {
           </div>
 
           <div>
-            <label className="block text-sm font-medium mb-2">Password</label>
             <div className="relative">
               <input
                 type={showPassword ? "text" : "password"}
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                placeholder="Password"
+                label="Password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
