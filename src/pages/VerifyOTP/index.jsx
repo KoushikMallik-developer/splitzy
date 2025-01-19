@@ -6,7 +6,7 @@ import { verifyOtp } from "../../store/userSlice";
 import profilepic from "../../assets/logo.png";
 
 const VerifyOTP = () => {
-  const { message, isLoading, user_email, token, statusCode } = useSelector(
+  const { message, isLoading, user_email, isLoggedIn, statusCode } = useSelector(
     (state) => state.user
   );
   const [otp, setOTP] = useState("");
@@ -18,13 +18,13 @@ const VerifyOTP = () => {
   };
 
   useEffect(() => {
-    if (token) {
+    if (isLoggedIn) {
       const timer = setTimeout(() => {
-        navigate("/dashboard");
+        navigate("/user/dashboard");
       }, 200);
       return () => clearTimeout(timer);
     }
-  }, [token]);
+  }, [isLoggedIn]);
 
   return (
     <div className="w-full lg:w-1/2 flex items-center justify-center p-8">

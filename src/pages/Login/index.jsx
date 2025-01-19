@@ -7,7 +7,7 @@ import { loginUser } from "../../store/userSlice";
 import CustomMessage from "../../components/CustomMessage";
 
 const Login = () => {
-  const { message, isLoading, token, statusCode } = useSelector(
+  const { message, isLoading, statusCode, isLoggedIn } = useSelector(
     (state) => state.user
   );
 
@@ -26,13 +26,13 @@ const Login = () => {
   };
 
   useEffect(() => {
-    if (token) {
+    if (isLoggedIn) {
       const timer = setTimeout(() => {
-        navigate("/dashboard");
+        navigate("/user/dashboard");
       }, 200);
       return () => clearTimeout(timer); // Cleanup timer on unmount
     }
-  }, [token]);
+  }, [isLoggedIn]);
 
   return (
     <div className="w-full lg:w-1/2 flex items-center justify-center p-8">

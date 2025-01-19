@@ -1,5 +1,4 @@
-import Header from "./components/Header/index.jsx";
-import Footer from "./components/Footer/index.jsx";
+
 import { Toaster } from "react-hot-toast";
 import { useEffect } from "react";
 import { Outlet, useLocation } from "react-router-dom";
@@ -21,11 +20,9 @@ function App() {
   return (
     <>
       {/* <GlobalProvider> */}
-      <Header />
       <main className="min-h-[78vh]">
         <Outlet />
       </main>
-      <Footer />
       <Toaster
         position="bottom-right"
         toastOptions={{

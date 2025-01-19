@@ -1,12 +1,14 @@
 import { createBrowserRouter } from "react-router-dom";
 import App from "../App";
 import HomePage from "../pages/Home/index.jsx";
-import LoginPage from "../pages/Login/index.jsx";
 import RegisterPage from "../pages/Register/index.jsx";
-import DefaultLayout from "../layouts/Dashboard/index.jsx";
+import DefaultLayout from "../layouts/Default/index.jsx";
 import AuthLayout from "../layouts/Auth";
-import Login from "../pages/Login/index.jsx";
+import LoginPage from "../pages/Login/index.jsx"; // Ensure correct import
 import VerifyOTP from "../pages/VerifyOTP/index.jsx";
+import Header from "../components/Header/index.jsx";
+import Footer from "../components/Footer/index.jsx";
+import ProtectedRoute from "../layouts/Protected/index.jsx";
 
 const router = createBrowserRouter([
   {
@@ -15,15 +17,21 @@ const router = createBrowserRouter([
     children: [
       {
         path: "",
-        element: <HomePage />,
+        element: (
+          <>
+            <Header />
+            <HomePage />
+            <Footer />
+          </>
+        ),
       },
       {
         path: "",
         element: <AuthLayout />,
         children: [
           {
-            path: "/login",
-            element: <Login />,
+            path: "login",
+            element: <LoginPage />, // Use correct component
           },
           {
             path: "register",
@@ -44,12 +52,16 @@ const router = createBrowserRouter([
       //     element : <ResetPassword/>
       // },
       {
-        path: "",
+        path: "user",
         element: <DefaultLayout />,
         children: [
           {
             path: "dashboard",
-            element: <>Hiinooobiesss</>,
+            element: (
+              <ProtectedRoute>
+                <>Hiinooobiesss</>
+              </ProtectedRoute>
+            ),
           },
         ],
       },

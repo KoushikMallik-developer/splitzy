@@ -16,11 +16,11 @@ const Header = () => {
     setIsMenuOpen(false);
   };
 
-  useEffect(() => {
-    if (!token) {
-      navigate("/"); // Redirect if user is logged out
-    }
-  }, [token, navigate]);
+  // useEffect(() => {
+  //   if (!token) {
+  //     navigate("/"); // Redirect if user is logged out
+  //   }
+  // }, [token, navigate]);
 
   const logged_in_pages = [
     { url: "dashboard", name: "Dashboard" },
