@@ -1,14 +1,16 @@
 import { createBrowserRouter } from "react-router-dom";
 import App from "../App";
-import HomePage from "../pages/Home/index.jsx";
 import RegisterPage from "../pages/Register/index.jsx";
 import DefaultLayout from "../layouts/Default/index.jsx";
 import AuthLayout from "../layouts/Auth";
-import LoginPage from "../pages/Login/index.jsx"; // Ensure correct import
-import VerifyOTP from "../pages/VerifyOTP/index.jsx";
+import ProtectedRoute from "../layouts/Protected/index.jsx";
 import Header from "../components/Header/index.jsx";
 import Footer from "../components/Footer/index.jsx";
-import ProtectedRoute from "../layouts/Protected/index.jsx";
+import HomePage from "../pages/Home/index.jsx";
+import LoginPage from "../pages/Login/index.jsx"; // Ensure correct import
+import VerifyOTP from "../pages/VerifyOTP/index.jsx";
+import DashboardPage from "../pages/Dashboard"
+
 
 const router = createBrowserRouter([
   {
@@ -59,7 +61,7 @@ const router = createBrowserRouter([
             path: "dashboard",
             element: (
               <ProtectedRoute>
-                <>Hiinooobiesss</>
+                <DashboardPage/>
               </ProtectedRoute>
             ),
           },
