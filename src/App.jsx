@@ -1,4 +1,3 @@
-
 import { Toaster } from "react-hot-toast";
 import { useEffect } from "react";
 import { Outlet, useLocation } from "react-router-dom";

@@ -3,7 +3,7 @@ import React from "react";
 const NavigationContent = () => {
   const navigationItems = [
     {
-      href: "#overview",
+      url: "dashboard",
       icon: (
         <path
           strokeLinecap="round"
@@ -12,11 +12,11 @@ const NavigationContent = () => {
           d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"
         />
       ),
-      text: "Overview",
+      text: "Dashboard",
       active: true,
     },
     {
-      href: "#transactions",
+      url: "transactions",
       icon: (
         <path
           strokeLinecap="round"
@@ -28,7 +28,7 @@ const NavigationContent = () => {
       text: "Transactions",
     },
     {
-      href: "#groups",
+      url: "groups",
       icon: (
         <path
           strokeLinecap="round"
@@ -40,7 +40,7 @@ const NavigationContent = () => {
       text: "Groups",
     },
     {
-      href: "#friends",
+      url: "friends",
       icon: (
         <path
           strokeLinecap="round"
@@ -65,7 +65,7 @@ const NavigationContent = () => {
             {navigationItems.map((item, index) => (
               <a
                 key={index}
-                href={item.href}
+                href={item.url}
                 className={`flex items-center px-4 py-2 rounded-lg hover:bg-gray-200 transition-all ${
                   item.active ? "text-gray-700 bg-gray-100" : "text-gray-600"
                 }`}

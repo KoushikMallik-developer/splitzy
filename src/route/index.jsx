@@ -8,6 +8,7 @@ import HomePage from "../pages/Home/index.jsx";
 import LoginPage from "../pages/Login/index.jsx"; // Ensure correct import
 import VerifyOTP from "../pages/VerifyOTP/index.jsx";
 import DashboardPage from "../pages/Dashboard";
+import Transaction from "../pages/Transaction/index.jsx";
 
 const router = createBrowserRouter([
   {
@@ -45,7 +46,7 @@ const router = createBrowserRouter([
       //     element : <ResetPassword/>
       // },
       {
-        path: "user",
+        path: "",
         element: <DefaultLayout />,
         children: [
           {
@@ -53,6 +54,14 @@ const router = createBrowserRouter([
             element: (
               <ProtectedRoute>
                 <DashboardPage />
+              </ProtectedRoute>
+            ),
+          },
+          {
+            path: "transactions",
+            element: (
+              <ProtectedRoute>
+                <Transaction />
               </ProtectedRoute>
             ),
           },
