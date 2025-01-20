@@ -1,14 +1,26 @@
 import { createBrowserRouter } from "react-router-dom";
 import App from "../App";
-import RegisterPage from "../pages/Register/index.jsx";
+import React, { lazy } from "react";
 import DefaultLayout from "../layouts/Default/index.jsx";
 import AuthLayout from "../layouts/Auth";
 import ProtectedRoute from "../layouts/Protected/index.jsx";
-import HomePage from "../pages/Home/index.jsx";
-import LoginPage from "../pages/Login/index.jsx"; // Ensure correct import
-import VerifyOTP from "../pages/VerifyOTP/index.jsx";
-import DashboardPage from "../pages/Dashboard";
-import Transaction from "../pages/Transaction/index.jsx";
+const HomePage = lazy(() => withMinDelay(import("../pages/Home")));
+const LoginPage = lazy(() => withMinDelay(import("../pages/Login")));
+const RegisterPage = lazy(() =>
+  withMinDelay(import("../pages/Register/index.jsx"))
+);
+const VerifyOTP = lazy(() => withMinDelay(import("../pages/VerifyOTP")));
+const DashboardPage = lazy(() => withMinDelay(import("../pages/Dashboard")));
+const Transaction = lazy(() => withMinDelay(import("../pages/Transaction")));
+const Groups = lazy(() => withMinDelay(import("../pages/Groups")));
+const Friends = lazy(() => withMinDelay(import("../pages/Friends")));
+
+const withMinDelay = async (importPromise) => {
+  return Promise.all([
+    importPromise,
+    new Promise((resolve) => setTimeout(resolve, 700)),
+  ]).then(([module]) => module);
+};
 
 const router = createBrowserRouter([
   {
@@ -62,6 +74,22 @@ const router = createBrowserRouter([
             element: (
               <ProtectedRoute>
                 <Transaction />
+              </ProtectedRoute>
+            ),
+          },
+          {
+            path: "groups",
+            element: (
+              <ProtectedRoute>
+                <Groups />
+              </ProtectedRoute>
+            ),
+          },
+          {
+            path: "friends",
+            element: (
+              <ProtectedRoute>
+                <Friends />
               </ProtectedRoute>
             ),
           },
