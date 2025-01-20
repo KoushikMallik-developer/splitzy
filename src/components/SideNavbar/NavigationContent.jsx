@@ -84,20 +84,6 @@ const NavigationContent = () => {
           </div>
         </div>
       </div>
-
-      <div className="p-4 border-t border-gray-200">
-        <div className="flex items-center space-x-3">
-          <img
-            src="/api/placeholder/32/32"
-            alt="User"
-            className="w-8 h-8 rounded-full"
-          />
-          <div>
-            <p className="text-sm font-medium text-gray-700">User Name</p>
-            <p className="text-xs text-gray-500">user@email.com</p>
-          </div>
-        </div>
-      </div>
     </>
   );
 };
