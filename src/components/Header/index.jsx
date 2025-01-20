@@ -1,5 +1,5 @@
-import { Link, useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { useState } from "react";
 import DropdownMessage from "./DropdownMessage";
 import DropdownNotification from "./DropdownNotification";
 import DropdownUser from "./DropdownUser";
@@ -8,8 +8,7 @@ import { FaReceipt } from "react-icons/fa";
 import { useSelector } from "react-redux";
 
 const Header = () => {
-  const navigate = useNavigate();
-  const { isLoggedIn, token } = useSelector((state) => state.user);
+  const { isLoggedIn } = useSelector((state) => state.user);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const closeNav = () => {

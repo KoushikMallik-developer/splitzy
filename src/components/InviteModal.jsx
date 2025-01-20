@@ -1,18 +1,20 @@
 import React, { useEffect } from "react";
-import { TbXboxX, TbInfoCircle } from "react-icons/tb";
+import { TbXboxX } from "react-icons/tb";
 
 const Modal = ({ isOpen, onClose, title, children, maxWidth = "md" }) => {
-  useEffect(() => {
-    const handleKeyDown = (e) => {
+  const handleKeyDown =
+    ((e) => {
       if (e.key === "Escape") onClose();
       if (e.key === "Tab") handleTabKey(e);
-    };
+    },
+    [onClose]);
 
+  useEffect(() => {
     if (isOpen) {
       window.addEventListener("keydown", handleKeyDown);
     }
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [isOpen, onClose]);
+  }, [isOpen, handleKeyDown]);
 
   if (!isOpen) return null;
 
@@ -82,20 +84,17 @@ const Modal = ({ isOpen, onClose, title, children, maxWidth = "md" }) => {
   );
 };
 
-const AddModal = ({ isOpen, onClose }) => {
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Add your invitation logic here
-    onClose();
-  };
+const InviteModal = ({ isOpen, onClose }) => {
+  const handleSubmit =
+    ((e) => {
+      e.preventDefault();
+      // Add your invitation logic here
+      onClose();
+    },
+    [onClose]);
 
   return (
-    <Modal
-      isOpen={isOpen}
-      onClose={onClose}
-      title="Add Friend"
-      maxWidth="md"
-    >
+    <Modal isOpen={isOpen} onClose={onClose} title="Add Friend" maxWidth="md">
       <form onSubmit={handleSubmit} className="space-y-4">
         <div className="space-y-2">
           <input
@@ -125,4 +124,4 @@ const AddModal = ({ isOpen, onClose }) => {
   );
 };
 
-export default AddModal;
+export default InviteModal;
