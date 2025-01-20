@@ -28,7 +28,7 @@ const Login = () => {
   useEffect(() => {
     if (isLoggedIn) {
       const timer = setTimeout(() => {
-        navigate("/user/dashboard");
+        navigate("/dashboard");
       }, 200);
       return () => clearTimeout(timer); // Cleanup timer on unmount
     }

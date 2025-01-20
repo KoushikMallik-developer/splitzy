@@ -1,4 +1,3 @@
-
 import { Toaster } from "react-hot-toast";
 import { useEffect } from "react";
 import { Outlet, useLocation } from "react-router-dom";
@@ -20,7 +19,7 @@ function App() {
   return (
     <>
       {/* <GlobalProvider> */}
-      <main className="min-h-[78vh]">
+      <main>
         <Outlet />
       </main>
       <Toaster
