@@ -18,7 +18,7 @@ const Friends = lazy(() => withMinDelay(import("../pages/Friends")));
 const withMinDelay = async (importPromise) => {
   return Promise.all([
     importPromise,
-    new Promise((resolve) => setTimeout(resolve, 700)),
+    new Promise((resolve) => setTimeout(resolve, 330)),
   ]).then(([module]) => module);
 };
 
