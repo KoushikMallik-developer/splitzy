@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from "react";
-import CustomMessage from "../../components/CustomMessage";
+import ErrorMessage from "../../components/ErrorMessage";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { verifyOtp } from "../../store/userSlice";
 import profilepic from "../../assets/logo.png";
 
 const VerifyOTP = () => {
-  const { message, isLoading, user_email, isLoggedIn, statusCode } = useSelector(
-    (state) => state.user
-  );
+  const { message, isLoading, user_email, isLoggedIn, statusCode } =
+    useSelector((state) => state.user);
   const [otp, setOTP] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -41,7 +40,7 @@ const VerifyOTP = () => {
         <h1 className="text-2xl font-bold mb-6 text-center">
           Welcome to Splitzy
         </h1>
-        <CustomMessage message={message} statusCode={statusCode} />
+        <ErrorMessage message={message} statusCode={statusCode} />
         <form className="space-y-6">
           <div>
             <input

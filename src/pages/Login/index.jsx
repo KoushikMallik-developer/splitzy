@@ -4,7 +4,7 @@ import { FaRegEyeSlash, FaRegEye, FaGoogle, FaFacebook } from "react-icons/fa";
 import profilepic from "../../assets/logo.png";
 import { useNavigate } from "react-router-dom";
 import { loginUser } from "../../store/userSlice";
-import CustomMessage from "../../components/CustomMessage";
+import ErrorMessage from "../../components/ErrorMessage";
 
 const Login = () => {
   const { message, isLoading, statusCode, isLoggedIn } = useSelector(
@@ -50,7 +50,7 @@ const Login = () => {
         <h1 className="text-2xl font-bold mb-8 text-center">
           Welcome to Splitzy
         </h1>
-        <CustomMessage message={message} statusCode={statusCode} />
+        <ErrorMessage message={message} statusCode={statusCode} />
         {/* {children} */}
         <form className="space-y-6">
           <div>

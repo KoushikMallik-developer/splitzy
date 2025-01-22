@@ -6,6 +6,7 @@ const AccountDetails = () => {
   const [formData, setFormData] = useState({
     firstName: "John",
     lastName: "Doe",
+    username: "john_09009",
     email: "john@example.com",
     phoneNumber: "",
     date: new Date().toISOString().split("T")[0],
@@ -135,18 +136,31 @@ const AccountDetails = () => {
                   />
                 </div>
               </div>
-
-              <div>
-                <label className="block text-sm font-medium text-gray-600 mb-2">
-                  Email
-                </label>
-                <input
-                  type="email"
-                  name="email"
-                  className="w-full px-4 py-2 rounded-lg bg-gray-200 border border-gray-300 text-gray-800 focus:outline-none focus:border-indigo-500"
-                  value={formData.email}
-                  onChange={handleInputChange}
-                />
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-600 mb-2">
+                    Username
+                  </label>
+                  <input
+                    type="username"
+                    name="username"
+                    className="w-full px-4 py-2 rounded-lg bg-gray-200 border border-gray-300 text-gray-800 focus:outline-none focus:border-indigo-500"
+                    value={formData.username}
+                    onChange={handleInputChange}
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-600 mb-2">
+                    Email
+                  </label>
+                  <input
+                    type="email"
+                    name="email"
+                    className="w-full px-4 py-2 rounded-lg bg-gray-200 border border-gray-300 text-gray-800 focus:outline-none focus:border-indigo-500"
+                    value={formData.email}
+                    onChange={handleInputChange}
+                  />
+                </div>
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-600 mb-2">
