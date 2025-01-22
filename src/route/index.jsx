@@ -4,6 +4,9 @@ import React, { lazy } from "react";
 import DefaultLayout from "../layouts/Default/index.jsx";
 import AuthLayout from "../layouts/Auth";
 import ProtectedRoute from "../layouts/Protected/index.jsx";
+const AccountDetails = lazy(() =>
+  withMinDelay(import("../pages/AccountDetails"))
+);
 const HomePage = lazy(() => withMinDelay(import("../pages/Home")));
 const LoginPage = lazy(() => withMinDelay(import("../pages/Login")));
 const RegisterPage = lazy(() =>
@@ -90,6 +93,14 @@ const router = createBrowserRouter([
             element: (
               <ProtectedRoute>
                 <Friends />
+              </ProtectedRoute>
+            ),
+          },
+          {
+            path: "user-profile",
+            element: (
+              <ProtectedRoute>
+                <AccountDetails />
               </ProtectedRoute>
             ),
           },
