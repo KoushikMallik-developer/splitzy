@@ -74,7 +74,7 @@ const RecentTransactions = () => {
   ];
 
   return (
-    <div className="bg-white rounded-lg border border-gray-200">
+    <div className="bg-white rounded-lg border border-gray-200 mt-6">
       <div className="p-6">
         <h3 className="text-lg font-semibold text-gray-800 mb-4">
           Recent Transactions

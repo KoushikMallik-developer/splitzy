@@ -4,6 +4,7 @@ import React, { lazy } from "react";
 import DefaultLayout from "../layouts/Default/index.jsx";
 import AuthLayout from "../layouts/Auth";
 import ProtectedRoute from "../layouts/Protected/index.jsx";
+const Analytics = lazy(() => withMinDelay(import("../pages/Analytics/index.jsx")));
 const AccountDetails = lazy(() =>
   withMinDelay(import("../pages/AccountDetails"))
 );
@@ -13,7 +14,7 @@ const RegisterPage = lazy(() =>
   withMinDelay(import("../pages/Register/index.jsx"))
 );
 const VerifyOTP = lazy(() => withMinDelay(import("../pages/VerifyOTP")));
-const DashboardPage = lazy(() => withMinDelay(import("../pages/Dashboard")));
+const DashboardPage = lazy(() => withMinDelay(import("../pages/Dashboard/index.jsx")));
 const Transaction = lazy(() => withMinDelay(import("../pages/Transaction")));
 const Groups = lazy(() => withMinDelay(import("../pages/Groups")));
 const Friends = lazy(() => withMinDelay(import("../pages/Friends")));
@@ -93,6 +94,14 @@ const router = createBrowserRouter([
             element: (
               <ProtectedRoute>
                 <Friends />
+              </ProtectedRoute>
+            ),
+          },
+          {
+            path: "analytics",
+            element: (
+              <ProtectedRoute>
+                <Analytics />
               </ProtectedRoute>
             ),
           },

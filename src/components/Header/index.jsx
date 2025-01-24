@@ -21,20 +21,6 @@ const Header = () => {
   //   }
   // }, [token, navigate]);
 
-  const logged_in_pages = [
-    { url: "dashboard", name: "Dashboard" },
-    { url: "friends", name: "Friends" },
-    { url: "groups", name: "Groups" },
-  ];
-
-  const logged_out_pages = [
-    { url: "features", name: "Features" },
-    { url: "pricing", name: "Pricing" },
-    { url: "faq", name: "FAQ" },
-  ];
-
-  const pages = isLoggedIn ? logged_in_pages : logged_out_pages;
-
   return (
     // <header className="sticky top-0 z-50 w-full bg-gray-100 shadow-md dark:bg-gray-800">
     <header className="sticky top-0 z-50 w-full bg-white shadow-md dark:bg-gray-800">
@@ -74,19 +60,6 @@ const Header = () => {
               </span>
             </Link>
           </div>
-          {/* Desktop Navigation - Hidden on mobile */}
-          <nav className="hidden md:flex space-x-8">
-            {pages.map((page) => (
-              <Link
-                key={page.name}
-                to={page.url}
-                className="text-gray-600 text-lg hover:text-blue-500 px-3 py-2 font-medium dark:text-white"
-              >
-                {page.name}
-              </Link>
-            ))}
-          </nav>
-
           {/* Auth Buttons */}
           {isLoggedIn ? (
             <div className="flex items-center gap-3 2xsm:gap-4">
@@ -116,26 +89,6 @@ const Header = () => {
               </ul>
             </div>
           )}
-        </div>
-
-        {/* Mobile Navigation - Only visible when menu is open */}
-        <div
-          className={`${isMenuOpen ? "block" : "hidden"} absolute top-full left-0 right-0 bg-gray-100 shadow-lg dark:bg-gray-800 md:hidden`}
-        >
-          {pages.map((page) => (
-            <div
-              key={page.url}
-              className="border-b border-gray-200 dark:border-gray-700"
-            >
-              <Link
-                to={page.url}
-                className="block px-4 py-3 text-sm text-gray-700 hover:bg-gray-200 dark:text-white dark:hover:bg-gray-700"
-                onClick={closeNav}
-              >
-                {page.name}
-              </Link>
-            </div>
-          ))}
         </div>
       </div>
     </header>
