@@ -1,7 +1,9 @@
 import React from "react";
 import RecentTransactions from "../../components/Transaction/RecentTransaction";
+import { useNavigate } from "react-router-dom";
 
 const Analytics = () => {
+  const navigate = useNavigate();
   return (
     <section id="profile" class="p-6">
       <div class="bg-white rounded-lg border border-gray-200 mb-6">
@@ -27,7 +29,10 @@ const Analytics = () => {
                 </span>
               </div>
             </div>
-            <button class="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors">
+            <button
+              class="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors"
+              onClick={() => navigate("/user-profile")}
+            >
               Edit Profile
             </button>
           </div>
@@ -209,9 +214,8 @@ const Analytics = () => {
           </div>
         </div>
       </div>
- 
-        <RecentTransactions />
-  
+
+      <RecentTransactions />
     </section>
   );
 };
