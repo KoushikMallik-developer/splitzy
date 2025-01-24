@@ -18,6 +18,19 @@ const MonthlyTransactionChart = () => {
     { month: "May", sent: 4890, received: 6800 },
     { month: "Jun", sent: 3780, received: 5900 },
   ];
+
+  const renderCustomAxisTick = ({ x, y, payload }) => {
+    // Convert value to "k" format
+    const formattedValue =
+      payload.value >= 1000 ? `${payload.value / 1000}k` : payload.value;
+
+    return (
+      <text x={x} y={y} dy={10} textAnchor="end" fill="#666">
+        {formattedValue}
+      </text>
+    );
+  };
+
   return (
     <div className="bg-white p-6 rounded-lg border border-gray-200 mb-6">
       <h3 className="text-lg font-semibold text-gray-800 mb-4">
@@ -25,10 +38,15 @@ const MonthlyTransactionChart = () => {
       </h3>
       <div className="h-64">
         <ResponsiveContainer width="100%" height="100%">
-          <LineChart data={chartData}>
+          <LineChart
+            margin={{
+              right:40
+            }}
+            data={chartData}
+          >
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="month" />
-            <YAxis />
+            <YAxis tick={renderCustomAxisTick} />
             <Tooltip />
             <Line type="monotone" dataKey="sent" stroke="#EF4444" />
             <Line type="monotone" dataKey="received" stroke="#3B82F6" />

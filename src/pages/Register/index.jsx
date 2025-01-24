@@ -1,11 +1,10 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { FaRegEyeSlash, FaRegEye, FaGoogle } from "react-icons/fa";
 import profilepic from "../../assets/logo.png";
 import { registerUser } from "../../store/userSlice";
-import toast from "react-hot-toast";
-import CustomMessage from "../../components/CustomMessage";
+import ErrorMessage from "../../components/ErrorMessage";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -25,7 +24,7 @@ const Register = () => {
       // if (password !== confirmPassword) {
       //   toast.error("Password Mismatch");
       // } else {
-        dispatch(registerUser({ name, email, password }));
+      dispatch(registerUser({ name, email, password }));
       // }
     } catch {
       console.log("error");
@@ -56,7 +55,7 @@ const Register = () => {
         <h1 className="text-2xl font-bold mb-6 text-center">
           Welcome to Splitzy
         </h1>
-        <CustomMessage message={message} statusCode={statusCode} />
+        <ErrorMessage message={message} statusCode={statusCode} />
         <form className="space-y-6">
           <div>
             <input
