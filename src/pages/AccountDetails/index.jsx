@@ -1,18 +1,26 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import profilePic from "../../assets/images/user/user-01.png";
+import { useDispatch, useSelector } from "react-redux";
+import { userDetailsbyID, updateUserDetailsbyID } from "../../store/userSlice";
+import Loader from "../../components/Loader";
+import { convertDateString } from "../../utils/dateFormatter";
 
 const AccountDetails = () => {
+  const dispatch = useDispatch();
+  const { userDetails, isLoading, message } = useSelector(
+    (state) => state.user
+  );
   const [selectedImage, setSelectedImage] = useState(profilePic);
   const [formData, setFormData] = useState({
-    firstName: "John",
-    lastName: "Doe",
-    username: "john_09009",
-    email: "john@example.com",
+    firstName: "",
+    lastName: "",
     phoneNumber: "",
-    date: new Date().toISOString().split("T")[0],
+    date: "",
     bio: "Frontend Developer | Coffee Enthusiast",
-    image: null,
+    image: "",
   });
+  const [errors, setErrors] = useState({});
+  console.log(userDetails);
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -33,12 +41,47 @@ const AccountDetails = () => {
     }));
   };
 
+  const validate = () => {
+    let tempErrors = {};
+    if (!formData.firstName) tempErrors.firstName = "First Name is required";
+    if (!formData.lastName) tempErrors.lastName = "Last Name is required";
+    if (!formData.phoneNumber)
+      tempErrors.phoneNumber = "Phone Number is required";
+    if (!formData.date) tempErrors.date = "Date is required";
+    setErrors(tempErrors);
+    return Object.keys(tempErrors).length === 0;
+  };
+
+  const updateProfileHandler = (e) => {
+    e.preventDefault();
+    if (validate()) {
+      dispatch(updateUserDetailsbyID(formData));
+    }
+  };
+
+  useEffect(() => {
+    dispatch(userDetailsbyID());
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (userDetails) {
+      setFormData({
+        firstName: userDetails.fname,
+        lastName: userDetails.lname,
+        phoneNumber: userDetails.phone,
+        email: userDetails.email,
+        date: convertDateString(userDetails.dob),
+        bio: "Frontend Developer | Coffee Enthusiast",
+        image: userDetails.image,
+      });
+    }
+  }, [userDetails]);
+
   return (
     <section id="overview" className="p-6">
       {/* Header */}
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-2xl font-bold text-gray-800">Profile Settings</h1>
-        <div className="flex items-center space-x-4"></div>
       </div>
       {/* Profile Content */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
@@ -119,9 +162,14 @@ const AccountDetails = () => {
                     type="text"
                     name="firstName"
                     className="w-full px-4 py-2 rounded-lg bg-gray-200 border border-gray-300 text-gray-800 focus:outline-none focus:border-indigo-500"
-                    value={formData.firstName}
+                    value={formData.firstName || ""}
                     onChange={handleInputChange}
                   />
+                  {errors.firstName && (
+                    <span className="text-red-500 text-sm">
+                      {errors.firstName}
+                    </span>
+                  )}
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-600 mb-2">
@@ -131,23 +179,34 @@ const AccountDetails = () => {
                     type="text"
                     name="lastName"
                     className="w-full px-4 py-2 rounded-lg bg-gray-200 border border-gray-300 text-gray-800 focus:outline-none focus:border-indigo-500"
-                    value={formData.lastName}
+                    value={formData.lastName || ""}
                     onChange={handleInputChange}
                   />
+                  {errors.lastName && (
+                    <span className="text-red-500 text-sm">
+                      {errors.lastName}
+                    </span>
+                  )}
                 </div>
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-600 mb-2">
-                    Username
+                    Phone Number
                   </label>
                   <input
-                    type="username"
-                    name="username"
+                    type="text"
+                    name="phoneNumber"
                     className="w-full px-4 py-2 rounded-lg bg-gray-200 border border-gray-300 text-gray-800 focus:outline-none focus:border-indigo-500"
-                    value={formData.username}
+                    value={formData.phoneNumber || ""}
                     onChange={handleInputChange}
+                    placeholder="+91"
                   />
+                  {errors.phoneNumber && (
+                    <span className="text-red-500 text-sm">
+                      {errors.phoneNumber}
+                    </span>
+                  )}
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-600 mb-2">
@@ -156,24 +215,11 @@ const AccountDetails = () => {
                   <input
                     type="email"
                     name="email"
-                    className="w-full px-4 py-2 rounded-lg bg-gray-200 border border-gray-300 text-gray-800 focus:outline-none focus:border-indigo-500"
-                    value={formData.email}
-                    onChange={handleInputChange}
+                    className={`w-full px-4 py-2 rounded-lg bg-gray-200 border border-gray-300 text-gray-800`}
+                    defaultValue={formData.email}
+                    disabled={true}
                   />
                 </div>
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-600 mb-2">
-                  Phone Number
-                </label>
-                <input
-                  type="text"
-                  name="phoneNumber"
-                  className="w-full px-4 py-2 rounded-lg bg-gray-200 border border-gray-300 text-gray-800 focus:outline-none focus:border-indigo-500"
-                  value={formData.phoneNumber}
-                  onChange={handleInputChange}
-                  placeholder="+91"
-                />
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-600 mb-2">
@@ -183,9 +229,12 @@ const AccountDetails = () => {
                   type="date"
                   name="date"
                   className="w-full px-4 py-2 rounded-lg bg-gray-200 border border-gray-300 text-gray-800 focus:outline-none focus:border-indigo-500"
-                  value={formData.date}
+                  value={formData.date || ""}
                   onChange={handleInputChange}
                 />
+                {errors.date && (
+                  <span className="text-red-500 text-sm">{errors.date}</span>
+                )}
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-600 mb-2">
@@ -194,18 +243,21 @@ const AccountDetails = () => {
                 <textarea
                   name="bio"
                   className="w-full px-4 py-2 rounded-lg bg-gray-200 border border-gray-300 text-gray-800 focus:outline-none focus:border-indigo-500"
-                  value={formData.bio}
+                  value={formData.bio || ""}
                   onChange={handleInputChange}
                 />
               </div>
+              <div className="flex justify-end">
+                <button
+                  type="submit"
+                  className="px-6 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors"
+                  onClick={updateProfileHandler}
+                  disabled={isLoading}
+                >
+                  Save Changes
+                </button>
+              </div>
             </form>
-          </div>
-
-          {/* Save Changes Button */}
-          <div className="flex justify-end">
-            <button className="px-6 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors">
-              Save Changes
-            </button>
           </div>
         </div>
       </div>

@@ -1,5 +1,5 @@
 import React from "react";
-import profilepic from "../../assets/logo.png";
+import Logo from "../../assets/logo.png";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import Footer from "../../components/Footer";
@@ -14,7 +14,7 @@ const HomePage = () => {
         <div className="flex flex-col items-center justify-center my-8 md:my-12 lg:my-20 md:flex-row-reverse">
           {/* Right Image Column */}
           <div className=" md:w-1/2 flex justify-center items-center mb-4 md:mb-0">
-            <img src={profilepic} alt="Logo" className="w-48 sm:w-56 md:w-64" />
+            <img src={Logo} alt="Logo" className="w-48 sm:w-56 md:w-64" />
           </div>
           {/* Text */}
           <div className="md:w-1/2 flex flex-col items-center my-4 md:my-6 lg:my-12">

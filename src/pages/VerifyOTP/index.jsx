@@ -3,7 +3,7 @@ import ErrorMessage from "../../components/ErrorMessage";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { verifyOtp } from "../../store/userSlice";
-import profilepic from "../../assets/logo.png";
+import Logo from "../../assets/logo.png";
 
 const VerifyOTP = () => {
   const { message, isLoading, user_email, isLoggedIn, statusCode } =
@@ -32,7 +32,7 @@ const VerifyOTP = () => {
           <div className="relative w-32 h-32">
             <img
               className="absolute w-full h-full object-contain"
-              src={profilepic}
+              src={Logo}
             />
           </div>
         </div>

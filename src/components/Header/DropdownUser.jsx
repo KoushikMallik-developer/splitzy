@@ -1,13 +1,13 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import ClickOutside from "../ClickOutside";
-import UserOne from "../../assets/images/user/user-01.png";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../store/userSlice";
 
 const DropdownUser = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dispatch = useDispatch();
+  const {userDetails} = useSelector((state)=> state.user)
 
   const handleLogout = async () => {
     await dispatch(logout());
@@ -27,7 +27,7 @@ const DropdownUser = () => {
         </span>
 
         <span className="h-12 w-12 rounded-full">
-          <img src={UserOne} alt="User" />
+          <img src={userDetails.image} alt="User" />
         </span>
 
         <svg
