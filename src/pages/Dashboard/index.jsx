@@ -1,16 +1,18 @@
 import React from "react";
 import RecentTransactions from "../../components/Transaction/RecentTransaction";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const Analytics = () => {
   const navigate = useNavigate();
+  const { userDetails } = useSelector((state) => state.user);
   return (
     <section id="profile" class="p-6">
       <div class="bg-white rounded-lg border border-gray-200 mb-6">
         <div class="p-6">
           <div class="flex flex-col md:flex-row items-start md:items-center space-y-4 md:space-y-0 md:space-x-6">
             <img
-              src="https://avatar.iran.liara.run/public/1"
+              src={userDetails.image}
               alt="Profile"
               class="w-24 h-24 rounded-full"
             />

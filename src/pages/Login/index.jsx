@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { FaRegEyeSlash, FaRegEye, FaGoogle, FaFacebook } from "react-icons/fa";
-import profilepic from "../../assets/logo.png";
+import Logo from "../../assets/logo.png";
 import { useNavigate } from "react-router-dom";
 import { loginUser } from "../../store/userSlice";
 import ErrorMessage from "../../components/ErrorMessage";
@@ -42,7 +42,7 @@ const Login = () => {
           <div className="relative w-32 h-32">
             <img
               className="absolute w-full h-full object-contain"
-              src={profilepic}
+              src={Logo}
             />
           </div>
         </div>
