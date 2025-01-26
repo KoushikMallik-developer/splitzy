@@ -139,6 +139,30 @@ export const updateUserDetailsbyID = createAsyncThunk(
   }
 );
 
+export const searchUsers = createAsyncThunk(
+  "seacrhUsers",
+  async (query, thunkAPI) => {
+    try {
+      const response = await Axios({
+        ...SummaryApi.searchUser,
+        data: {
+          keyword: query,
+        },
+      });
+      return {
+        message: response.data.message,
+        data: response.data.data,
+      };
+    } catch (error) {
+      const errorPayload = AxiosToastError(error);
+      return thunkAPI.rejectWithValue({
+        message: cleanErrorMessage(errorPayload.message),
+        statusCode: error.status,
+      });
+    }
+  }
+);
+
 const initialValue = {
   user_email: null,
   token: null,
@@ -269,7 +293,22 @@ const userSlice = createSlice({
         toast.success(
           action.payload.message || "User Details Updated Successful"
         );
-      });
+      })
+      // .addCase(searchUsers.pending, (state) => {
+      //   state.isLoading = true;
+      //   state.message = null;
+      // })
+      // .addCase(searchUsers.rejected, (state, action) => {
+      //   state.isLoading = false;
+      //   state.message = action.payload?.message || "Failed to search users";
+      //   state.statusCode = action.payload?.statusCode;
+      // })
+      // .addCase(searchUsers.fulfilled, (state, action) => {
+      //   state.isLoading = false;
+      //   state.searchResults = action.payload.data || [];
+      //   state.message = action.payload.message;
+      //   toast.success(action.payload.message || "Users fetched successfully");
+      // });
   },
 });
 

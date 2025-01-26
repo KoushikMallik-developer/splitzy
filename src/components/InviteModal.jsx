@@ -1,126 +1,72 @@
-import React, { useEffect } from "react";
-import { TbXboxX } from "react-icons/tb";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import debounce from "lodash.debounce";
+import { searchUsers } from "../store/userSlice";
+import NameToAvatar from "./NameToAvatar";
 
-const Modal = ({ isOpen, onClose, title, children, maxWidth = "md" }) => {
-  const handleKeyDown =
-    ((e) => {
-      if (e.key === "Escape") onClose();
-      if (e.key === "Tab") handleTabKey(e);
-    },
-    [onClose]);
+const InviteModal = ({ isOpen, onClose }) => {
+  const [searchTerm, setSearchTerm] = useState("");
+  const dispatch = useDispatch();
+  const [searchResults, setSearchResults] = useState([]);
 
   useEffect(() => {
-    if (isOpen) {
-      window.addEventListener("keydown", handleKeyDown);
+    if (searchTerm) {
+      const debouncedFetch = debounce(async () => {
+        const { payload } = await dispatch(searchUsers(searchTerm));
+        setSearchResults(payload.data.user_list);
+      }, 300);
+      debouncedFetch();
+      return () => {
+        debouncedFetch.cancel();
+      };
     }
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [isOpen, handleKeyDown]);
+  }, [searchTerm, dispatch]);
+
+  const handleSendRequest = (userId) => {
+    // Dispatch action to send friend request
+    // dispatch({ type: "SEND_FRIEND_REQUEST", payload: userId });
+  };
 
   if (!isOpen) return null;
 
-  const maxWidthClasses = {
-    sm: "max-w-sm",
-    md: "max-w-md",
-    lg: "max-w-lg",
-    xl: "max-w-xl",
-    "2xl": "max-w-2xl",
-    full: "max-w-full",
-  };
-
   return (
-    <div
-      role="dialog"
-      aria-modal="true"
-      aria-labelledby="modal-title"
-      className="fixed inset-0 z-50 overflow-y-auto overflow-x-hidden"
-    >
-      {/* Backdrop with animation */}
-      <div
-        className="fixed inset-0 bg-black transition-opacity duration-300 ease-in-out"
-        style={{
-          opacity: isOpen ? 0.5 : 0,
-        }}
-        onClick={onClose}
-        aria-hidden="true"
-      />
-
-      {/* Modal Container with animation */}
-      <div className="flex min-h-full items-center justify-center p-4 text-center sm:p-0">
-        <div
-          className={`relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all duration-300 ease-in-out w-full ${maxWidthClasses[maxWidth]} mx-auto`}
-          style={{
-            transform: isOpen
-              ? "scale(1) translateY(0)"
-              : "scale(0.95) translateY(-20px)",
-            opacity: isOpen ? 1 : 0,
-          }}
+    <div className="fixed inset-0 bg-gray-600 bg-opacity-50 flex justify-center items-center z-20">
+      <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md relative m-4">
+        <button
+          className="absolute top-2 right-2 text-gray-600 hover:text-gray-800"
+          onClick={onClose}
         >
-          {/* Modal Content */}
-          <div className="flex flex-col">
-            <div className="flex justify-between items-center p-3 sm:p-4">
-              <h2
-                id="modal-title"
-                className="text-lg sm:text-xl font-bold text-black"
-              >
-                {title}
-              </h2>
+          &times;
+        </button>
+        <h2 className="text-xl font-bold mb-4">Invite Friends</h2>
+        <input
+          type="text"
+          className="w-full p-2 border border-gray-300 rounded-lg mb-4"
+          placeholder="Search for users..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
+        <ul>
+          {searchResults.map((user) => (
+            <li
+              key={user.id}
+              className="flex justify-between items-center mb-2"
+            >
+              <div className="flex space-x-3 items-center">
+                <NameToAvatar name={user.fname + " " + user.lname} />
+                <span>{user.fname + " " + user.lname}</span>
+              </div>
               <button
-                onClick={onClose}
-                className="text-gray-400 hover:text-black transition-colors p-2 rounded-lg"
-                aria-label="Close modal"
+                className="px-2 py-1 text-sm bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                onClick={() => handleSendRequest(user.id)}
               >
-                <TbXboxX className="w-5 h-5 sm:w-6 sm:h-6" />
+                Send Request
               </button>
-            </div>
-
-            {/* Body */}
-            <div className="p-2 sm:p-4" role="document">
-              {children}
-            </div>
-          </div>
-        </div>
+            </li>
+          ))}
+        </ul>
       </div>
     </div>
-  );
-};
-
-const InviteModal = ({ isOpen, onClose }) => {
-  const handleSubmit =
-    ((e) => {
-      e.preventDefault();
-      // Add your invitation logic here
-      onClose();
-    },
-    [onClose]);
-
-  return (
-    <Modal isOpen={isOpen} onClose={onClose} title="Add Friend" maxWidth="md">
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <div className="space-y-2">
-          <input
-            type="email"
-            placeholder="Enter email addresses..."
-            className="w-full px-3 sm:px-4 py-3 bg-white border border-gray-600 rounded-lg text-black placeholder-gray-400 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
-          />
-        </div>
-
-        <div className="flex flex-col sm:flex-row gap-2 sm:gap-4 mt-6">
-          <button
-            type="button"
-            onClick={onClose}
-            className="px-4 py-2 text-sm sm:text-base border border-gray-600 text-gray-700 rounded-lg transition-colors order-2 sm:order-1"
-          >
-            Cancel
-          </button>
-          <button
-            type="submit"
-            className="px-4 py-2 text-sm sm:text-base bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors order-1 sm:order-2 sm:flex-1"
-          >
-            Search
-          </button>
-        </div>
-      </form>
-    </Modal>
   );
 };
 

@@ -42,6 +42,10 @@ const SummaryApi = {
     url: "/auth/api/v2/update-profile",
     method: "post",
   },
+  searchUser : {
+    url: "/auth/api/v2/search-users",
+    method:"post"
+  }
 };
 
 export default SummaryApi;
