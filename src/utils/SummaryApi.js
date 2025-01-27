@@ -42,10 +42,18 @@ const SummaryApi = {
     url: "/auth/api/v2/update-profile",
     method: "post",
   },
-  searchUser : {
+  searchUser: {
     url: "/auth/api/v2/search-users",
-    method:"post"
-  }
+    method: "post",
+  },
+  sendFirendRequest: {
+    url: "/friends/api/v2/send-friend-request",
+    method: "post",
+  },
+  removeFirendRequest: {
+    url: "/friends/api/v2/remove-friend-request",
+    method: "post",
+  },
 };
 
 export default SummaryApi;

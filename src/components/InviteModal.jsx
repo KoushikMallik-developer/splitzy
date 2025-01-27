@@ -1,19 +1,24 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import debounce from "lodash.debounce";
-import { searchUsers } from "../store/userSlice";
+import {
+  searchUsers,
+  sendFirendRequest,
+  removeFriendRequest,
+} from "../store/userSlice";
 import NameToAvatar from "./NameToAvatar";
 
 const InviteModal = ({ isOpen, onClose }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const dispatch = useDispatch();
   const [searchResults, setSearchResults] = useState([]);
+  const [friendRequests, setFriendRequests] = useState({});
 
   useEffect(() => {
     if (searchTerm) {
       const debouncedFetch = debounce(async () => {
         const { payload } = await dispatch(searchUsers(searchTerm));
-        setSearchResults(payload.data.user_list);
+        setSearchResults(payload.data);
       }, 300);
       debouncedFetch();
       return () => {
@@ -22,9 +27,20 @@ const InviteModal = ({ isOpen, onClose }) => {
     }
   }, [searchTerm, dispatch]);
 
-  const handleSendRequest = (userId) => {
+  const handleSendRequest = async (userId) => {
     // Dispatch action to send friend request
-    // dispatch({ type: "SEND_FRIEND_REQUEST", payload: userId });
+    const result = await dispatch(sendFirendRequest(userId));
+    if (result.meta.requestStatus === "fulfilled") {
+      setFriendRequests((prev) => ({ ...prev, [userId]: true }));
+    }
+  };
+
+  const handleCancelRequest = async (userId) => {
+    // Dispatch action to remove friend request
+    const result = await dispatch(removeFriendRequest(userId));
+    if (result.meta.requestStatus === "fulfilled") {
+      setFriendRequests((prev) => ({ ...prev, [userId]: false }));
+    }
   };
 
   if (!isOpen) return null;
@@ -56,12 +72,21 @@ const InviteModal = ({ isOpen, onClose }) => {
                 <NameToAvatar name={user.fname + " " + user.lname} />
                 <span>{user.fname + " " + user.lname}</span>
               </div>
-              <button
-                className="px-2 py-1 text-sm bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
-                onClick={() => handleSendRequest(user.id)}
-              >
-                Send Request
-              </button>
+              {friendRequests[user.id] ? (
+                <button
+                  className="px-2 py-1 text-sm bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors"
+                  onClick={() => handleCancelRequest(user.id)}
+                >
+                  Cancel Request
+                </button>
+              ) : (
+                <button
+                  className="px-2 py-1 text-sm bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                  onClick={() => handleSendRequest(user.id)}
+                >
+                  Send Request
+                </button>
+              )}
             </li>
           ))}
         </ul>
