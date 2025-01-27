@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import FreindsList from "../../components/Freinds/FreindsList";
+import InviteModal from "../../components/InviteModal";
 
 const Friends = () => {
   const [friends] = useState([
@@ -31,6 +32,15 @@ const Friends = () => {
 
   const [itemsPerPage, setItemsPerPage] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
+  const [isModalOpen, setIsModalOpen] = React.useState(false);
+
+  const handleOpenModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
 
   return (
     <section className="p-6">
@@ -58,8 +68,12 @@ const Friends = () => {
               />
             </svg>
           </div>
-          <button className="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors">
-            Add Friend
+
+          <button
+            className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
+            onClick={handleOpenModal}
+          >
+            Invite Friends
           </button>
         </div>
       </div>
@@ -115,6 +129,9 @@ const Friends = () => {
           </div>
         </div>
       </div>
+      {isModalOpen ? (
+        <InviteModal isOpen={handleOpenModal} onClose={handleCloseModal} />
+      ) : null}
     </section>
   );
 };
