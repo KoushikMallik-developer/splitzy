@@ -1,10 +1,48 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import FriendCard from "../../components/Friends/FriendsCard";
 import InviteModal from "../../components/InviteModal";
+import { useDispatch } from "react-redux";
+import {
+  acceptFirendRequest,
+  getAllFriendRequests,
+  getAllFriends,
+  removeFriendRequest,
+} from "../../store/friendsSlice";
+import Loader from "../../components/Loader";
 
 const Friends = () => {
-  const [activeTab, setActiveTab] = useState("requests");
+  const dispatch = useDispatch();
+  const [activeTab, setActiveTab] = useState("friends");
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [friendRequests, setFriendRequests] = useState([]);
+  const [friends, setFriends] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  const handleRequest = async (id, actionType) => {
+    setLoading(true);
+    const action =
+      actionType === "remove" ? removeFriendRequest : acceptFirendRequest;
+    await dispatch(action(id));
+    dispatch(getAllFriendRequests()).then((response) => {
+      setFriendRequests(response.payload.data);
+      setLoading(false);
+    });
+  };
+
+  useEffect(() => {
+    setLoading(true);
+    if (activeTab === "requests") {
+      dispatch(getAllFriendRequests()).then((response) => {
+        setFriendRequests(response.payload.data);
+        setLoading(false);
+      });
+    } else if (activeTab === "friends") {
+      dispatch(getAllFriends()).then((response) => {
+        setFriends(response.payload.data);
+        setLoading(false);
+      });
+    }
+  }, [dispatch, activeTab]);
 
   const handleOpenModal = () => {
     setIsModalOpen(true);
@@ -13,18 +51,6 @@ const Friends = () => {
   const handleCloseModal = () => {
     setIsModalOpen(false);
   };
-
-  const friendRequests = [
-    { id: 1, name: "Sarah Wilson", mutualFriends: 12 },
-    { id: 2, name: "Michael Brown", mutualFriends: 8 },
-    { id: 3, name: "Emily Davis", mutualFriends: 15 },
-  ];
-
-  const friends = [
-    { id: 1, name: "Alex Johnson", mutualFriends: 5 },
-    { id: 2, name: "Lisa Thompson", mutualFriends: 3 },
-  ];
-
   return (
     <section id="friendsSection" className="p-6">
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
@@ -51,7 +77,7 @@ const Friends = () => {
                 : "text-gray-500 hover:text-blue-600"
             }`}
           >
-            All Friends (67)
+            All Friends {friends.length == 0 ? "" : `(${friends.length})`}
           </button>{" "}
           <button
             onClick={() => setActiveTab("requests")}
@@ -61,26 +87,47 @@ const Friends = () => {
                 : "text-gray-500 hover:text-blue-600"
             }`}
           >
-            Friend Requests (4)
+            Friend Requests
+            {friendRequests.length == 0 ? "" : `(${friendRequests.length})`}
           </button>
         </div>
       </div>
 
-      {activeTab === "requests" && (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {friendRequests.map((user) => (
-            <FriendCard key={user.id} friend={user} type="requests" />
-          ))}
-        </div>
-      )}
-      {activeTab === "friends" && (
-        <div className="mt-12">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {friends.map((user) => (
-              <FriendCard key={user.id} friend={user} type="friends" />
-            ))}
-          </div>
-        </div>
+      {loading ? (
+        <Loader />
+      ) : (
+        <>
+          {activeTab === "requests" && (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {friendRequests.length == 0
+                ? "No Pending Requests"
+                : friendRequests.map((user) => (
+                    <FriendCard
+                      key={user.id}
+                      friend={user.user}
+                      type="requests"
+                      handleRequest={handleRequest}
+                    />
+                  ))}
+            </div>
+          )}
+          {activeTab === "friends" && (
+            <div className="mt-12">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                {friends.length == 0
+                  ? "You have no friends to display"
+                  : friends.map((user) => (
+                      <FriendCard
+                        key={user.id}
+                        friend={user}
+                        type="friends"
+                        handleRequest={handleRequest}
+                      />
+                    ))}
+              </div>
+            </div>
+          )}
+        </>
       )}
       {isModalOpen ? (
         <InviteModal isOpen={handleOpenModal} onClose={handleCloseModal} />

@@ -138,7 +138,7 @@ export const updateUserDetailsbyID = createAsyncThunk(
 );
 
 export const searchUsers = createAsyncThunk(
-  "seacrhUsers",
+  "searchUsers",
   async (query, thunkAPI) => {
     try {
       const response = await Axios({
@@ -153,87 +153,6 @@ export const searchUsers = createAsyncThunk(
       };
     } catch (error) {
       const errorPayload = AxiosToast("error", error);
-      return thunkAPI.rejectWithValue({
-        message: cleanErrorMessage(errorPayload.message),
-        statusCode: error.status,
-      });
-    }
-  }
-);
-
-export const sendFirendRequest = createAsyncThunk(
-  "sendFirendRequest",
-  async (id, thunkAPI) => {
-    try {
-      const response = await Axios({
-        ...SummaryApi.sendFirendRequest,
-        data: {
-          user_id: id,
-        },
-      });
-      AxiosToast("success", response.data.message);
-      return {
-        message: response.data.message,
-        data: response.data.data,
-      };
-    } catch (error) {
-      console.log("catch");
-
-      const errorPayload = AxiosToast("", error);
-      return thunkAPI.rejectWithValue({
-        message: cleanErrorMessage(errorPayload.message),
-        statusCode: error.status,
-      });
-    }
-  }
-);
-
-export const removeFriendRequest = createAsyncThunk(
-  "removeFriendRequest",
-  async (id, thunkAPI) => {
-    try {
-      const response = await Axios({
-        ...SummaryApi.removeFirendRequest,
-        data: {
-          user_id: id,
-        },
-      });
-      AxiosToast("success", response.data.message);
-      return {
-        message: response.data.message,
-        data: response.data.data,
-      };
-    } catch (error) {
-      console.log("catch");
-
-      const errorPayload = AxiosToast("", error);
-      return thunkAPI.rejectWithValue({
-        message: cleanErrorMessage(errorPayload.message),
-        statusCode: error.status,
-      });
-    }
-  }
-);
-
-export const acceptFirendRequest = createAsyncThunk(
-  "acceptFirendRequest",
-  async (id, thunkAPI) => {
-    try {
-      const response = await Axios({
-        ...SummaryApi.acceptFriendRequest,
-        data: {
-          user_id: id,
-        },
-      });
-      AxiosToast("success", response.data.message);
-      return {
-        message: response.data.message,
-        data: response.data.data,
-      };
-    } catch (error) {
-      console.log("catch");
-
-      const errorPayload = AxiosToast("", error);
       return thunkAPI.rejectWithValue({
         message: cleanErrorMessage(errorPayload.message),
         statusCode: error.status,

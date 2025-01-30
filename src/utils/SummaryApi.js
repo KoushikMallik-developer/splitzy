@@ -58,6 +58,14 @@ const SummaryApi = {
     url: "/friends/api/v2/accept-friend",
     method: "post",
   },
+  getAllFriendRequests: {
+    url: "/friends/api/v2/my-received-friend-requests",
+    method: "get",
+  },
+  getAllFriends: {
+    url: "friends/api/v2/my-friends",
+    method: "get",
+  },
 };
 
 export default SummaryApi;

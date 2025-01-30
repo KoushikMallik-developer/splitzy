@@ -12,11 +12,6 @@ const NavigationContent = () => {
   const navigate = useNavigate();
   const [activeItem, setActiveItem] = useState("");
 
-  useEffect(() => {
-    const currentPath = window.location.pathname.split("/").pop();
-    setActiveItem(currentPath);
-  }, []);
-
   const navigationItems = [
     {
       url: "dashboard",
@@ -62,7 +57,10 @@ const NavigationContent = () => {
                     ? "text-gray-800 bg-gray-200"
                     : "text-gray-600"
                 }`}
-                onClick={() => navigate(`/${item.url}`)}
+                onClick={() => {
+                  navigate(`/${item.url}`);
+                  setActiveItem(item.url);
+                }}
               >
                 <svg
                   className="w-5 h-5 mr-3"

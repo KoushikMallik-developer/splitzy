@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
+import { useNavigate } from "react-router-dom";
 
-const FriendCard = ({friend}) => {
+const FriendCard = ({ friend, type, handleRequest }) => {
+  const navigate = useNavigate();
   return (
     <div className="bg-white rounded-xl shadow-sm p-4 hover:shadow-md transition duration-200">
       <div className="flex flex-col items-center">
@@ -20,17 +22,33 @@ const FriendCard = ({friend}) => {
           </svg>
         </div>
         <h4 className="font-semibold text-gray-900 text-center">
-          {friend.name}
+          {friend.fname + " " + friend.lname}
         </h4>
-        <p className="text-sm text-gray-500 mb-4">
-          {friend.mutualFriends} mutual friends
-        </p>
-        <button className="w-full px-4 py-2 mb-2 bg-gray-100 text-blue-600 rounded-lg hover:bg-blue-600 hover:text-white transition duration-200">
-          Add Friend
-        </button>
-        <button className="w-full px-4 py-2 bg-gray-100 text-blue-600 rounded-lg hover:bg-red-600 hover:text-white transition duration-200">
-          Remove
-        </button>
+        <p className="text-sm text-gray-500 mb-4">{friend.email}</p>
+        {type == "requests" ? (
+          <>
+            {" "}
+            <button
+              className="w-full px-4 py-2 mb-2 bg-gray-100 text-blue-600 rounded-lg hover:bg-blue-600 hover:text-white transition duration-200"
+              onClick={() => handleRequest(friend.id, "add")}
+            >
+              Add Friend
+            </button>
+            <button
+              className="w-full px-4 py-2 bg-gray-100 text-blue-600 rounded-lg hover:bg-red-600 hover:text-white transition duration-200"
+              onClick={() => handleRequest(friend.id, "remove")}
+            >
+              Remove
+            </button>
+          </>
+        ) : (
+          <button
+            className="w-full px-4 py-2 mb-2 bg-gray-100 text-blue-600 rounded-lg hover:bg-blue-600 hover:text-white transition duration-200"
+            onClick={() => navigate(`/user/${friend.id}`)}
+          >
+            View
+          </button>
+        )}
       </div>
     </div>
   );

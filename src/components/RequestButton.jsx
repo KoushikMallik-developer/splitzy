@@ -4,7 +4,7 @@ import {
   sendFirendRequest,
   removeFriendRequest,
   acceptFirendRequest,
-} from "../store/userSlice";
+} from "../store/friendsSlice";
 import ClickOutside from "./ClickOutside";
 
 const RequestButton = ({ user }) => {
