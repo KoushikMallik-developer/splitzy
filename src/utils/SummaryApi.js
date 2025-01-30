@@ -54,6 +54,10 @@ const SummaryApi = {
     url: "/friends/api/v2/remove-friend-request",
     method: "post",
   },
+  acceptFriendRequest: {
+    url: "/friends/api/v2/accept-friend",
+    method: "post",
+  },
 };
 
 export default SummaryApi;

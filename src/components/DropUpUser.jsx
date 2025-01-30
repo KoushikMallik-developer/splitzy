@@ -22,7 +22,7 @@ const DropUpUser = () => {
       >
         <span className="hidden text-right lg:block">
           <span className="block text-sm font-medium text-black dark:text-white">
-            Thomas
+            {userDetails.fname+" "+userDetails.lname}
           </span>
         </span>
 

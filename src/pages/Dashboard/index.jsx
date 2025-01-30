@@ -1,11 +1,17 @@
-import React from "react";
+import React, { useEffect } from "react";
 import RecentTransactions from "../../components/Transaction/RecentTransaction";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { userDetailsbyID } from "../../store/userSlice";
 
 const Analytics = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const { userDetails } = useSelector((state) => state.user);
+
+  useEffect(() => {
+    dispatch(userDetailsbyID());
+  }, []);
   return (
     <section id="profile" class="p-6">
       <div class="bg-white rounded-lg border border-gray-200 mb-6">
@@ -17,8 +23,10 @@ const Analytics = () => {
               class="w-24 h-24 rounded-full"
             />
             <div class="flex-1">
-              <h1 class="text-2xl font-bold text-gray-800 mb-1">John Doe</h1>
-              <p class="text-gray-500 mb-2">john@example.com</p>
+              <h1 class="text-2xl font-bold text-gray-800 mb-1">
+                {userDetails.fname + " " + userDetails.lname}
+              </h1>
+              <p class="text-gray-500 mb-2">{userDetails.email}</p>
               <div class="flex flex-wrap gap-2">
                 <span class="px-3 py-1 text-sm bg-indigo-100 text-indigo-600 rounded-full">
                   12 Groups
