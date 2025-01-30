@@ -246,7 +246,6 @@ export const acceptFirendRequest = createAsyncThunk(
 
 
 const initialValue = {
-  user_email: null,
   token: null,
   refresh_token: null,
   status: "idle",
