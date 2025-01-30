@@ -217,6 +217,34 @@ export const removeFriendRequest = createAsyncThunk(
   }
 );
 
+export const acceptFirendRequest = createAsyncThunk(
+  "acceptFirendRequest",
+  async (id, thunkAPI) => {
+    try {
+      const response = await Axios({
+        ...SummaryApi.acceptFriendRequest,
+        data: {
+          user_id: id,
+        },
+      });
+      AxiosToast("success", response.data.message);
+      return {
+        message: response.data.message,
+        data: response.data.data,
+      };
+    } catch (error) {
+      console.log("catch");
+
+      const errorPayload = AxiosToast("", error);
+      return thunkAPI.rejectWithValue({
+        message: cleanErrorMessage(errorPayload.message),
+        statusCode: error.status,
+      });
+    }
+  }
+);
+
+
 const initialValue = {
   user_email: null,
   token: null,

@@ -1,46 +1,30 @@
 import React, { useState } from "react";
-import FreindsList from "../../components/Friends/FriendsList";
-import InviteModal from "../../components/InviteModal";
+import FriendRequestList from "../../components/Friends/FriendRequestList";
 
-const Friends = () => {
+const FriendRequests = () => {
   const [friends] = useState([
     {
       id: 1,
       name: "Sarah Johnson",
       email: "sarah.j@email.com",
       avatar: "https://avatar.iran.liara.run/public/1",
-      amount: 1250,
-      type: "owe", // 'owe', 'owed', 'settled'
     },
     {
       id: 2,
       name: "Mike Smith",
       email: "mike.smith@email.com",
       avatar: "https://avatar.iran.liara.run/public/2",
-      amount: 2800,
-      type: "owed",
     },
     {
       id: 3,
       name: "Emily Chen",
       email: "emily.c@email.com",
       avatar: "https://avatar.iran.liara.run/public/3",
-      amount: 0,
-      type: "settled",
     },
   ]);
 
   const [itemsPerPage, setItemsPerPage] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
-  const [isModalOpen, setIsModalOpen] = React.useState(false);
-
-  const handleOpenModal = () => {
-    setIsModalOpen(true);
-  };
-
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
-  };
 
   return (
     <section className="p-6">
@@ -68,13 +52,6 @@ const Friends = () => {
               />
             </svg>
           </div>
-
-          <button
-            className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
-            onClick={handleOpenModal}
-          >
-            Invite Friends
-          </button>
         </div>
       </div>
 
@@ -88,7 +65,7 @@ const Friends = () => {
 
         <div className="divide-y divide-gray-200">
           {friends.map((friend) => (
-            <FreindsList key={friend.id} friend={friend} />
+            <FriendRequestList key={friend.id} friend={friend} />
           ))}
         </div>
 
@@ -129,11 +106,8 @@ const Friends = () => {
           </div>
         </div>
       </div>
-      {isModalOpen ? (
-        <InviteModal isOpen={handleOpenModal} onClose={handleCloseModal} />
-      ) : null}
     </section>
   );
 };
 
-export default Friends;
+export default FriendRequests;

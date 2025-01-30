@@ -4,6 +4,7 @@ import debounce from "lodash.debounce";
 import { searchUsers } from "../store/userSlice";
 import NameToAvatar from "./NameToAvatar";
 import RequestButton from "./RequestButton";
+import { useNavigate } from "react-router-dom";
 
 const SearchInput = ({ searchTerm, setSearchTerm }) => (
   <input
@@ -16,8 +17,9 @@ const SearchInput = ({ searchTerm, setSearchTerm }) => (
 );
 
 const InviteModal = ({ isOpen, onClose }) => {
-  const [searchTerm, setSearchTerm] = useState("");
+  const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]);
 
   const debouncedFetch = useMemo(
@@ -54,15 +56,28 @@ const InviteModal = ({ isOpen, onClose }) => {
         <ul>
           {searchResults &&
             searchResults.map((user) => (
-              <li
-                key={user.id}
-                className="flex justify-between items-center mb-2"
-              >
-                <div className="flex space-x-3 items-center">
+              <li key={user.id} className="grid grid-cols-12 gap-4 mb-2">
+                <div className="col-span-8 flex space-x-3 items-center">
                   <NameToAvatar name={user.fname + " " + user.lname} />
                   <span>{user.fname + " " + user.lname}</span>
                 </div>
-                <RequestButton user={user} />
+                <div className="col-span-4 flex justify-center">
+                  {user.is_friend ? (
+                    <button
+                      className="px-2 py-1 text-xs rounded-lg transition-colors bg-blue-600 text-white hover:bg-blue-700"
+                      onClick={() => navigate(`/user/${user.id}`)}
+                      style={{
+                        display: "block",
+                        marginLeft: "auto",
+                        marginRight: "auto",
+                      }}
+                    >
+                      View
+                    </button>
+                  ) : (
+                    <RequestButton user={user} />
+                  )}
+                </div>
               </li>
             ))}
         </ul>
