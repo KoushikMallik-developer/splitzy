@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import profilePic from "../../assets/images/user/user-01.png";
 import { useDispatch, useSelector } from "react-redux";
 import { userDetailsbyID, updateUserDetailsbyID } from "../../store/userSlice";
-import Loader from "../../components/Loader";
 import { convertDateString } from "../../utils/dateFormatter";
 
 const AccountDetails = () => {
@@ -10,6 +9,7 @@ const AccountDetails = () => {
   const { userDetails, isLoading, message } = useSelector(
     (state) => state.user
   );
+  
   const [selectedImage, setSelectedImage] = useState(profilePic);
   const [formData, setFormData] = useState({
     firstName: "",
@@ -20,7 +20,6 @@ const AccountDetails = () => {
     image: "",
   });
   const [errors, setErrors] = useState({});
-  console.log(userDetails);
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];

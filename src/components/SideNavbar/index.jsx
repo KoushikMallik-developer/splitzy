@@ -5,8 +5,6 @@ import DropUpUser from "../DropUpUser";
 const SidebarNavigation = () => {
   const [isOpen, setIsOpen] = useState(false);
   return (
-    // <div id="root" className="bg-gray-200">
-    //   <div className="flex h-screen overflow-hidden">
     <>
       <nav className="hidden lg:flex lg:w-64 bg-white flex-col fixed h-full">
         <NavigationContent />
@@ -53,9 +51,6 @@ const SidebarNavigation = () => {
         )}
       </div>
     </>
-
-    //   </div>
-    // </div>
   );
 };
 

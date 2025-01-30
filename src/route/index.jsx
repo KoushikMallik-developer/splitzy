@@ -5,9 +5,6 @@ import DefaultLayout from "../layouts/Default/index.jsx";
 import AuthLayout from "../layouts/Auth";
 import ProtectedRoute from "../layouts/Protected/index.jsx";
 import UserDetails from "../pages/UserDetails/index.jsx";
-const FriendRequests = lazy(() =>
-  withMinDelay(import("../pages/FriendRequests/index.jsx"))
-);
 const Analytics = lazy(() =>
   withMinDelay(import("../pages/Analytics/index.jsx"))
 );
@@ -102,14 +99,6 @@ const router = createBrowserRouter([
             element: (
               <ProtectedRoute>
                 <Friends />
-              </ProtectedRoute>
-            ),
-          },
-          {
-            path: "friend-requests",
-            element: (
-              <ProtectedRoute>
-                <FriendRequests />
               </ProtectedRoute>
             ),
           },

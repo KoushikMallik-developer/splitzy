@@ -110,8 +110,6 @@ export const userDetailsbyID = createAsyncThunk(
 export const updateUserDetailsbyID = createAsyncThunk(
   "updateUserDetailsID",
   async (userData, thunkAPI) => {
-    console.log(userData);
-
     try {
       const response = await Axios({
         ...SummaryApi.updateUserByID,
