@@ -23,7 +23,7 @@ const SummaryApi = {
     method: "put",
   },
   refreshToken: {
-    url: "api/user/refresh-token",
+    url: "/auth/api/v2/refresh-token",
     method: "post",
   },
   friendSearch: {
