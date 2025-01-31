@@ -40,7 +40,7 @@ const MonthlyTransactionChart = () => {
         <ResponsiveContainer width="100%" height="100%">
           <LineChart
             margin={{
-              right:40
+              right: 40,
             }}
             data={chartData}
           >

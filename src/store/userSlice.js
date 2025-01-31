@@ -32,7 +32,7 @@ export const registerUser = createAsyncThunk(
         statusCode: error.status,
       });
     }
-  }
+  },
 );
 export const verifyOtp = createAsyncThunk(
   "verifyOtp",
@@ -59,7 +59,7 @@ export const verifyOtp = createAsyncThunk(
         statusCode: error.status,
       });
     }
-  }
+  },
 );
 export const loginUser = createAsyncThunk(
   "login",
@@ -82,7 +82,7 @@ export const loginUser = createAsyncThunk(
         statusCode: error.status,
       });
     }
-  }
+  },
 );
 
 export const userDetailsbyID = createAsyncThunk(
@@ -104,7 +104,7 @@ export const userDetailsbyID = createAsyncThunk(
         statusCode: error.status,
       });
     }
-  }
+  },
 );
 
 export const updateUserDetailsbyID = createAsyncThunk(
@@ -134,7 +134,7 @@ export const updateUserDetailsbyID = createAsyncThunk(
         statusCode: error.status,
       });
     }
-  }
+  },
 );
 
 export const searchUsers = createAsyncThunk(
@@ -158,9 +158,8 @@ export const searchUsers = createAsyncThunk(
         statusCode: error.status,
       });
     }
-  }
+  },
 );
-
 
 const initialValue = {
   token: null,
@@ -270,7 +269,7 @@ const userSlice = createSlice({
         state.statusCode = action.payload.statusCode;
         state.userDetails = action.payload.userDetails;
         toast.success(
-          action.payload.message || "User Details Fetched Successful"
+          action.payload.message || "User Details Fetched Successful",
         );
       })
       .addCase(updateUserDetailsbyID.pending, (state) => {
@@ -289,7 +288,7 @@ const userSlice = createSlice({
         state.statusCode = action.payload.statusCode;
         state.userDetails = action.payload.userDetails;
         toast.success(
-          action.payload.message || "User Details Updated Successful"
+          action.payload.message || "User Details Updated Successful",
         );
       });
   },

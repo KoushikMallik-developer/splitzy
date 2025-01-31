@@ -7,7 +7,7 @@ import { logout } from "../../store/userSlice";
 const DropdownUser = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dispatch = useDispatch();
-  const {userDetails} = useSelector((state)=> state.user)
+  const { userDetails } = useSelector((state) => state.user);
 
   const handleLogout = async () => {
     await dispatch(logout());

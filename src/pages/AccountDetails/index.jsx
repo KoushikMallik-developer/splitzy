@@ -7,9 +7,9 @@ import { convertDateString } from "../../utils/dateFormatter";
 const AccountDetails = () => {
   const dispatch = useDispatch();
   const { userDetails, isLoading, message } = useSelector(
-    (state) => state.user
+    (state) => state.user,
   );
-  
+
   const [selectedImage, setSelectedImage] = useState(profilePic);
   const [formData, setFormData] = useState({
     firstName: "",

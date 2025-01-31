@@ -59,7 +59,7 @@ const Table = ({ pageSize = 10, showPagination = true, className = "" }) => {
       status: statuses[Math.floor(Math.random() * statuses.length)],
       role: roles[Math.floor(Math.random() * roles.length)],
       lastLogin: new Date(
-        Date.now() - Math.floor(Math.random() * 10) * 24 * 60 * 60 * 1000
+        Date.now() - Math.floor(Math.random() * 10) * 24 * 60 * 60 * 1000,
       ).toLocaleDateString("en-US", {
         year: "numeric",
         month: "short",

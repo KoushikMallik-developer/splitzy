@@ -8,7 +8,7 @@ import ErrorMessage from "../../components/ErrorMessage";
 
 const Login = () => {
   const { message, isLoading, statusCode, isLoggedIn } = useSelector(
-    (state) => state.user
+    (state) => state.user,
   );
 
   const dispatch = useDispatch();
@@ -40,10 +40,7 @@ const Login = () => {
         {/* Logo */}
         <div className="flex justify-center mb-8">
           <div className="relative w-32 h-32">
-            <img
-              className="absolute w-full h-full object-contain"
-              src={Logo}
-            />
+            <img className="absolute w-full h-full object-contain" src={Logo} />
           </div>
         </div>
 

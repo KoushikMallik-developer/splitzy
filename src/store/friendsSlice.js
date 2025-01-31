@@ -28,7 +28,7 @@ export const sendFirendRequest = createAsyncThunk(
         statusCode: error.status,
       });
     }
-  }
+  },
 );
 
 export const removeFriendRequest = createAsyncThunk(
@@ -55,7 +55,7 @@ export const removeFriendRequest = createAsyncThunk(
         statusCode: error.status,
       });
     }
-  }
+  },
 );
 
 export const acceptFirendRequest = createAsyncThunk(
@@ -82,7 +82,7 @@ export const acceptFirendRequest = createAsyncThunk(
         statusCode: error.status,
       });
     }
-  }
+  },
 );
 
 export const getAllFriendRequests = createAsyncThunk(
@@ -105,7 +105,7 @@ export const getAllFriendRequests = createAsyncThunk(
         statusCode: error.status,
       });
     }
-  }
+  },
 );
 
 export const getAllFriends = createAsyncThunk(
@@ -128,5 +128,5 @@ export const getAllFriends = createAsyncThunk(
         statusCode: error.status,
       });
     }
-  }
+  },
 );

@@ -28,7 +28,7 @@ const InviteModal = ({ isOpen, onClose }) => {
         const { payload } = await dispatch(searchUsers(term));
         setSearchResults(payload.data);
       }, 300),
-    [dispatch]
+    [dispatch],
   );
 
   useEffect(() => {

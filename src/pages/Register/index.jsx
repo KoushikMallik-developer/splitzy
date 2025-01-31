@@ -10,7 +10,7 @@ const Register = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { message, isLoading, user_email, statusCode } = useSelector(
-    (state) => state.user
+    (state) => state.user,
   );
 
   const [name, setName] = useState("");
@@ -45,10 +45,7 @@ const Register = () => {
       <div className="max-w-md w-full">
         <div className="flex justify-center mb-6">
           <div className="relative w-32 h-32">
-            <img
-              className="absolute w-full h-full object-contain"
-              src={Logo}
-            />
+            <img className="absolute w-full h-full object-contain" src={Logo} />
           </div>
         </div>
 

@@ -1,11 +1,11 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import ClickOutside from '../ClickOutside';
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import ClickOutside from "../ClickOutside";
 
-import UserOne from '../../assets/images/user/user-01.png';
-import UserTwo from '../../assets/images/user/user-02.png';
-import UserThree from '../../assets/images/user/user-03.png';
-import UserFour from '../../assets/images/user/user-04.png';
+import UserOne from "../../assets/images/user/user-01.png";
+import UserTwo from "../../assets/images/user/user-02.png";
+import UserThree from "../../assets/images/user/user-03.png";
+import UserFour from "../../assets/images/user/user-04.png";
 
 const DropdownMessage = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -24,7 +24,7 @@ const DropdownMessage = () => {
         >
           <span
             className={`absolute -top-0.5 -right-0.5 z-1 h-2 w-2 rounded-full bg-meta-1 ${
-              notifying === false ? 'hidden' : 'inline'
+              notifying === false ? "hidden" : "inline"
             }`}
           >
             <span className="absolute -z-1 inline-flex h-full w-full animate-ping rounded-full bg-meta-1 opacity-75"></span>
