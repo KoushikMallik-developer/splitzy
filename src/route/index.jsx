@@ -4,21 +4,21 @@ import React, { lazy } from "react";
 import DefaultLayout from "../layouts/Default/index.jsx";
 import AuthLayout from "../layouts/Auth";
 import ProtectedRoute from "../layouts/Protected/index.jsx";
-import UserDetails from "../pages/UserDetails/index.jsx";
+const UserDetails = lazy(() => import("../pages/UserDetails/index.jsx"));
 const Analytics = lazy(() =>
-  withMinDelay(import("../pages/Analytics/index.jsx")),
+  withMinDelay(import("../pages/Analytics/index.jsx"))
 );
 const AccountDetails = lazy(() =>
-  withMinDelay(import("../pages/AccountDetails")),
+  withMinDelay(import("../pages/AccountDetails"))
 );
 const HomePage = lazy(() => withMinDelay(import("../pages/Home")));
 const LoginPage = lazy(() => withMinDelay(import("../pages/Login")));
 const RegisterPage = lazy(() =>
-  withMinDelay(import("../pages/Register/index.jsx")),
+  withMinDelay(import("../pages/Register/index.jsx"))
 );
 const VerifyOTP = lazy(() => withMinDelay(import("../pages/VerifyOTP")));
 const DashboardPage = lazy(() =>
-  withMinDelay(import("../pages/Dashboard/index.jsx")),
+  withMinDelay(import("../pages/Dashboard/index.jsx"))
 );
 const Transaction = lazy(() => withMinDelay(import("../pages/Transaction")));
 const Groups = lazy(() => withMinDelay(import("../pages/Groups")));

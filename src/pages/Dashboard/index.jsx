@@ -2,7 +2,8 @@ import React, { useEffect } from "react";
 import RecentTransactions from "../../components/Transaction/RecentTransaction";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { userDetailsbyID } from "../../store/userSlice";
+import { userDetailsbyToken } from "../../store/userSlice";
+import NameToAvatar from "../../components/NameToAvatar";
 
 const Analytics = () => {
   const navigate = useNavigate();
@@ -10,37 +11,36 @@ const Analytics = () => {
   const { userDetails } = useSelector((state) => state.user);
 
   useEffect(() => {
-    dispatch(userDetailsbyID());
+    dispatch(userDetailsbyToken());
   }, []);
   return (
-    <section id="profile" class="p-6">
-      <div class="bg-white rounded-lg border border-gray-200 mb-6">
-        <div class="p-6">
-          <div class="flex flex-col md:flex-row items-start md:items-center space-y-4 md:space-y-0 md:space-x-6">
-            <img
-              src={userDetails.image}
-              alt="Profile"
-              class="w-24 h-24 rounded-full"
+    <section id="profile" className="p-6">
+      <div className="bg-white rounded-lg border border-gray-200 mb-6">
+        <div className="p-6">
+          <div className="flex flex-col md:flex-row items-start md:items-center space-y-4 md:space-y-0 md:space-x-6">
+            <NameToAvatar
+              size={80}
+              name={userDetails.fname + " " + userDetails.lname}
             />
-            <div class="flex-1">
-              <h1 class="text-2xl font-bold text-gray-800 mb-1">
+            <div className="flex-1">
+              <h1 className="text-2xl font-bold text-gray-800 mb-1">
                 {userDetails.fname + " " + userDetails.lname}
               </h1>
-              <p class="text-gray-500 mb-2">{userDetails.email}</p>
-              <div class="flex flex-wrap gap-2">
-                <span class="px-3 py-1 text-sm bg-indigo-100 text-indigo-600 rounded-full">
+              <p className="text-gray-500 mb-2">{userDetails.email}</p>
+              <div className="flex flex-wrap gap-2">
+                <span className="px-3 py-1 text-sm bg-indigo-100 text-indigo-600 rounded-full">
                   12 Groups
                 </span>
-                <span class="px-3 py-1 text-sm bg-green-100 text-green-600 rounded-full">
+                <span className="px-3 py-1 text-sm bg-green-100 text-green-600 rounded-full">
                   25 Friends
                 </span>
-                <span class="px-3 py-1 text-sm bg-purple-100 text-purple-600 rounded-full">
+                <span className="px-3 py-1 text-sm bg-purple-100 text-purple-600 rounded-full">
                   Member since 2023
                 </span>
               </div>
             </div>
             <button
-              class="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors"
+              className="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors"
               onClick={() => navigate("/user-profile")}
             >
               Edit Profile
@@ -48,12 +48,12 @@ const Analytics = () => {
           </div>
         </div>
       </div>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
-        <div class="bg-white p-6 rounded-lg border border-gray-200">
-          <div class="flex items-center justify-between mb-4">
-            <h3 class="text-lg font-semibold text-gray-800">Total Balance</h3>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+        <div className="bg-white p-6 rounded-lg border border-gray-200">
+          <div className="flex items-center justify-between mb-4">
+            <h3 className="text-lg font-semibold text-gray-800">Total Balance</h3>
             <svg
-              class="w-6 h-6 text-green-600"
+              className="w-6 h-6 text-green-600"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -66,15 +66,15 @@ const Analytics = () => {
               ></path>
             </svg>
           </div>
-          <p class="text-3xl font-bold text-gray-800">₹24,500</p>
-          <p class="text-sm text-gray-500 mt-2">Updated 2 hours ago</p>
+          <p className="text-3xl font-bold text-gray-800">₹24,500</p>
+          <p className="text-sm text-gray-500 mt-2">Updated 2 hours ago</p>
         </div>
 
-        <div class="bg-white p-6 rounded-lg border border-gray-200">
-          <div class="flex items-center justify-between mb-4">
-            <h3 class="text-lg font-semibold text-gray-800">You Owe</h3>
+        <div className="bg-white p-6 rounded-lg border border-gray-200">
+          <div className="flex items-center justify-between mb-4">
+            <h3 className="text-lg font-semibold text-gray-800">You Owe</h3>
             <svg
-              class="w-6 h-6 text-red-600"
+              className="w-6 h-6 text-red-600"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -87,15 +87,15 @@ const Analytics = () => {
               ></path>
             </svg>
           </div>
-          <p class="text-3xl font-bold text-red-600">₹3,250</p>
-          <p class="text-sm text-gray-500 mt-2">Across 3 groups</p>
+          <p className="text-3xl font-bold text-red-600">₹3,250</p>
+          <p className="text-sm text-gray-500 mt-2">Across 3 groups</p>
         </div>
 
-        <div class="bg-white p-6 rounded-lg border border-gray-200">
-          <div class="flex items-center justify-between mb-4">
-            <h3 class="text-lg font-semibold text-gray-800">You're Owed</h3>
+        <div className="bg-white p-6 rounded-lg border border-gray-200">
+          <div className="flex items-center justify-between mb-4">
+            <h3 className="text-lg font-semibold text-gray-800">You're Owed</h3>
             <svg
-              class="w-6 h-6 text-green-600"
+              className="w-6 h-6 text-green-600"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -108,23 +108,23 @@ const Analytics = () => {
               ></path>
             </svg>
           </div>
-          <p class="text-3xl font-bold text-green-600">₹5,800</p>
-          <p class="text-sm text-gray-500 mt-2">From 5 friends</p>
+          <p className="text-3xl font-bold text-green-600">₹5,800</p>
+          <p className="text-sm text-gray-500 mt-2">From 5 friends</p>
         </div>
       </div>
 
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <div class="bg-white rounded-lg border border-gray-200">
-          <div class="px-6 py-4 border-b border-gray-200">
-            <h3 class="text-lg font-semibold text-gray-800">Recent Activity</h3>
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div className="bg-white rounded-lg border border-gray-200">
+          <div className="px-6 py-4 border-b border-gray-200">
+            <h3 className="text-lg font-semibold text-gray-800">Recent Activity</h3>
           </div>
-          <div class="divide-y divide-gray-200">
-            <div class="p-4 hover:bg-gray-50">
-              <div class="flex items-center justify-between">
-                <div class="flex items-center space-x-3">
-                  <div class="p-2 bg-blue-100 rounded-full">
+          <div className="divide-y divide-gray-200">
+            <div className="p-4 hover:bg-gray-50">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center space-x-3">
+                  <div className="p-2 bg-blue-100 rounded-full">
                     <svg
-                      class="w-5 h-5 text-blue-600"
+                      className="w-5 h-5 text-blue-600"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -138,20 +138,20 @@ const Analytics = () => {
                     </svg>
                   </div>
                   <div>
-                    <p class="text-sm font-medium text-gray-800">
+                    <p className="text-sm font-medium text-gray-800">
                       Added to Movie Night group
                     </p>
-                    <p class="text-xs text-gray-500">2 hours ago</p>
+                    <p className="text-xs text-gray-500">2 hours ago</p>
                   </div>
                 </div>
               </div>
             </div>
-            <div class="p-4 hover:bg-gray-50">
-              <div class="flex items-center justify-between">
-                <div class="flex items-center space-x-3">
-                  <div class="p-2 bg-green-100 rounded-full">
+            <div className="p-4 hover:bg-gray-50">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center space-x-3">
+                  <div className="p-2 bg-green-100 rounded-full">
                     <svg
-                      class="w-5 h-5 text-green-600"
+                      className="w-5 h-5 text-green-600"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -165,10 +165,10 @@ const Analytics = () => {
                     </svg>
                   </div>
                   <div>
-                    <p class="text-sm font-medium text-gray-800">
+                    <p className="text-sm font-medium text-gray-800">
                       Received ₹1,200 from Sarah
                     </p>
-                    <p class="text-xs text-gray-500">5 hours ago</p>
+                    <p className="text-xs text-gray-500">5 hours ago</p>
                   </div>
                 </div>
               </div>
@@ -176,46 +176,46 @@ const Analytics = () => {
           </div>
         </div>
 
-        <div class="bg-white rounded-lg border border-gray-200">
-          <div class="px-6 py-4 border-b border-gray-200">
-            <h3 class="text-lg font-semibold text-gray-800">Your Statistics</h3>
+        <div className="bg-white rounded-lg border border-gray-200">
+          <div className="px-6 py-4 border-b border-gray-200">
+            <h3 className="text-lg font-semibold text-gray-800">Your Statistics</h3>
           </div>
-          <div class="p-6">
-            <div class="space-y-4">
+          <div className="p-6">
+            <div className="space-y-4">
               <div>
-                <div class="flex justify-between mb-2">
-                  <span class="text-sm text-gray-600">
+                <div className="flex justify-between mb-2">
+                  <span className="text-sm text-gray-600">
                     Groups Participation
                   </span>
-                  <span class="text-sm font-medium text-gray-800">12/15</span>
+                  <span className="text-sm font-medium text-gray-800">12/15</span>
                 </div>
-                <div class="w-full bg-gray-200 rounded-full h-2">
+                <div className="w-full bg-gray-200 rounded-full h-2">
                   <div
-                    class="bg-indigo-600 h-2 rounded-full"
+                    className="bg-indigo-600 h-2 rounded-full"
                     style={{ width: "80%" }}
                   ></div>
                 </div>
               </div>
               <div>
-                <div class="flex justify-between mb-2">
-                  <span class="text-sm text-gray-600">Settlement Rate</span>
-                  <span class="text-sm font-medium text-gray-800">95%</span>
+                <div className="flex justify-between mb-2">
+                  <span className="text-sm text-gray-600">Settlement Rate</span>
+                  <span className="text-sm font-medium text-gray-800">95%</span>
                 </div>
-                <div class="w-full bg-gray-200 rounded-full h-2">
+                <div className="w-full bg-gray-200 rounded-full h-2">
                   <div
-                    class="bg-green-600 h-2 rounded-full"
+                    className="bg-green-600 h-2 rounded-full"
                     style={{ width: "95%" }}
                   ></div>
                 </div>
               </div>
               <div>
-                <div class="flex justify-between mb-2">
-                  <span class="text-sm text-gray-600">Active Friends</span>
-                  <span class="text-sm font-medium text-gray-800">25/30</span>
+                <div className="flex justify-between mb-2">
+                  <span className="text-sm text-gray-600">Active Friends</span>
+                  <span className="text-sm font-medium text-gray-800">25/30</span>
                 </div>
-                <div class="w-full bg-gray-200 rounded-full h-2">
+                <div className="w-full bg-gray-200 rounded-full h-2">
                   <div
-                    class="bg-blue-600 h-2 rounded-full"
+                    className="bg-blue-600 h-2 rounded-full"
                     style={{ width: "83%" }}
                   ></div>
                 </div>

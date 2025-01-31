@@ -28,7 +28,7 @@ const InviteModal = ({ isOpen, onClose }) => {
         const { payload } = await dispatch(searchUsers(term));
         setSearchResults(payload.data);
       }, 300),
-    [dispatch],
+    [dispatch]
   );
 
   useEffect(() => {
@@ -57,7 +57,10 @@ const InviteModal = ({ isOpen, onClose }) => {
           {searchResults &&
             searchResults.map((user) => (
               <li key={user.id} className="grid grid-cols-12 gap-4 mb-2">
-                <div className="col-span-8 flex space-x-3 items-center">
+                <div
+                  className="col-span-8 flex space-x-3 items-center cursor-pointer"
+                  onClick={() => navigate(`/user/${user.id}`)}
+                >
                   <NameToAvatar name={user.fname + " " + user.lname} />
                   <span>{user.fname + " " + user.lname}</span>
                 </div>

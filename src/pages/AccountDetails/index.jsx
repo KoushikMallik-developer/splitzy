@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import profilePic from "../../assets/images/user/user-01.png";
 import { useDispatch, useSelector } from "react-redux";
-import { userDetailsbyID, updateUserDetailsbyID } from "../../store/userSlice";
+import { userDetailsbyToken, updateUserDetailsbyID } from "../../store/userSlice";
 import { convertDateString } from "../../utils/dateFormatter";
 
 const AccountDetails = () => {
@@ -59,7 +59,7 @@ const AccountDetails = () => {
   };
 
   useEffect(() => {
-    dispatch(userDetailsbyID());
+    dispatch(userDetailsbyToken());
   }, [dispatch]);
 
   useEffect(() => {

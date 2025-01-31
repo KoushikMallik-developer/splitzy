@@ -4,12 +4,12 @@ import Axios from "../utils/Axios.js";
 import { cleanErrorMessage } from "../utils/clearErrorMessage.js";
 import { AxiosToast } from "../utils/AxiosToast.js";
 
-export const sendFirendRequest = createAsyncThunk(
-  "sendFirendRequest",
+export const sendFriendRequest = createAsyncThunk(
+  "sendFriendRequest",
   async (id, thunkAPI) => {
     try {
       const response = await Axios({
-        ...SummaryApi.sendFirendRequest,
+        ...SummaryApi.sendFriendRequest,
         data: {
           user_id: id,
         },
@@ -28,7 +28,7 @@ export const sendFirendRequest = createAsyncThunk(
         statusCode: error.status,
       });
     }
-  },
+  }
 );
 
 export const removeFriendRequest = createAsyncThunk(
@@ -36,7 +36,7 @@ export const removeFriendRequest = createAsyncThunk(
   async (id, thunkAPI) => {
     try {
       const response = await Axios({
-        ...SummaryApi.removeFirendRequest,
+        ...SummaryApi.removeFriendRequest,
         data: {
           user_id: id,
         },
@@ -55,7 +55,7 @@ export const removeFriendRequest = createAsyncThunk(
         statusCode: error.status,
       });
     }
-  },
+  }
 );
 
 export const acceptFirendRequest = createAsyncThunk(
@@ -82,7 +82,34 @@ export const acceptFirendRequest = createAsyncThunk(
         statusCode: error.status,
       });
     }
-  },
+  }
+);
+
+export const removeFriend = createAsyncThunk(
+  "removeFriend",
+  async (id, thunkAPI) => {
+    try {
+      const response = await Axios({
+        ...SummaryApi.removeFriend,
+        data: {
+          user_id: id,
+        },
+      });
+      AxiosToast("success", response.data.message);
+      return {
+        message: response.data.message,
+        data: response.data.data,
+      };
+    } catch (error) {
+      console.log("catch");
+
+      const errorPayload = AxiosToast("", error);
+      return thunkAPI.rejectWithValue({
+        message: cleanErrorMessage(errorPayload.message),
+        statusCode: error.status,
+      });
+    }
+  }
 );
 
 export const getAllFriendRequests = createAsyncThunk(
@@ -105,7 +132,7 @@ export const getAllFriendRequests = createAsyncThunk(
         statusCode: error.status,
       });
     }
-  },
+  }
 );
 
 export const getAllFriends = createAsyncThunk(
@@ -128,5 +155,29 @@ export const getAllFriends = createAsyncThunk(
         statusCode: error.status,
       });
     }
-  },
+  }
+);
+
+export const userDetailsByID = createAsyncThunk(
+  "userDetailsByID",
+  async (id, thunkAPI) => {
+    try {
+      const response = await Axios({
+        ...SummaryApi.userDetailsbyID,
+        data: { user_id: id },
+      });
+      AxiosToast("success", response.data.message);
+      return {
+        message: response.data.message,
+        data: response.data.data,
+      };
+    } catch (error) {
+      console.log("catch");
+      const errorPayload = AxiosToast("", error);
+      return thunkAPI.rejectWithValue({
+        message: cleanErrorMessage(errorPayload.message),
+        statusCode: error.status,
+      });
+    }
+  }
 );

@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import ClickOutside from "./ClickOutside";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../store/userSlice";
+import NameToAvatar from "./NameToAvatar";
 
 const DropUpUser = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -22,12 +23,12 @@ const DropUpUser = () => {
       >
         <span className="hidden text-right lg:block">
           <span className="block text-sm font-medium text-black dark:text-white">
-            {userDetails.fname + " " + userDetails.lname}
+            {userDetails.fname}
           </span>
         </span>
 
-        <span className="h-12 w-12 rounded-full">
-          <img src={userDetails.image} alt="User" />
+        <span className="h-10 w-10 py-1 rounded-full">
+          <NameToAvatar name={userDetails.fname + " " + userDetails.lname} />
         </span>
 
         <svg

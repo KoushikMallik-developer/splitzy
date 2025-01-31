@@ -85,12 +85,12 @@ export const loginUser = createAsyncThunk(
   },
 );
 
-export const userDetailsbyID = createAsyncThunk(
-  "userDetailsID",
+export const userDetailsbyToken = createAsyncThunk(
+  "userDetailsToken",
   async (userData, thunkAPI) => {
     try {
       const response = await Axios({
-        ...SummaryApi.getUserByID,
+        ...SummaryApi.getUserByToken,
       });
       return {
         message: response.data.message,
@@ -253,17 +253,17 @@ const userSlice = createSlice({
         state.statusCode = action.payload.statusCode;
         toast.success(action.payload.message || "Login Successful");
       })
-      .addCase(userDetailsbyID.pending, (state) => {
+      .addCase(userDetailsbyToken.pending, (state) => {
         state.isLoading = true; // Set loading state
         state.message = null; // Clear message
       })
-      .addCase(userDetailsbyID.rejected, (state, action) => {
+      .addCase(userDetailsbyToken.rejected, (state, action) => {
         state.isLoading = false;
         state.message =
           action.payload?.message || "Error fetching user details";
         state.statusCode = action.payload?.statusCode;
       })
-      .addCase(userDetailsbyID.fulfilled, (state, action) => {
+      .addCase(userDetailsbyToken.fulfilled, (state, action) => {
         state.isLoading = false;
         state.message = action.payload.message;
         state.statusCode = action.payload.statusCode;

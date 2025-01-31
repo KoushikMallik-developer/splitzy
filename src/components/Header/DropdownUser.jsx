@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import ClickOutside from "../ClickOutside";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../store/userSlice";
+import NameToAvatar from "../NameToAvatar";
 
 const DropdownUser = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -17,17 +18,17 @@ const DropdownUser = () => {
     <ClickOutside onClick={() => setDropdownOpen(false)} className="relative">
       <Link
         onClick={() => setDropdownOpen(!dropdownOpen)}
-        className="flex items-center gap-4"
+        className="flex items-center"
         to="#"
       >
-        <span className="hidden text-right lg:block">
+        {/* <span className="hidden text-right lg:block">
           <span className="block text-sm font-medium text-black dark:text-white">
-            Thomas
+            {userDetails.fname}
           </span>
-        </span>
+        </span> */}
 
-        <span className="h-12 w-12 rounded-full">
-          <img src={userDetails.image} alt="User" />
+        <span className="h-10 w-10 py-1 rounded-full">
+          <NameToAvatar name={userDetails.fname + " " + userDetails.lname} />
         </span>
 
         <svg
