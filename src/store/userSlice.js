@@ -32,7 +32,7 @@ export const registerUser = createAsyncThunk(
         statusCode: error.status,
       });
     }
-  }
+  },
 );
 export const verifyOtp = createAsyncThunk(
   "verifyOtp",
@@ -59,7 +59,7 @@ export const verifyOtp = createAsyncThunk(
         statusCode: error.status,
       });
     }
-  }
+  },
 );
 export const loginUser = createAsyncThunk(
   "login",
@@ -82,15 +82,15 @@ export const loginUser = createAsyncThunk(
         statusCode: error.status,
       });
     }
-  }
+  },
 );
 
-export const userDetailsbyID = createAsyncThunk(
-  "userDetailsID",
+export const userDetailsbyToken = createAsyncThunk(
+  "userDetailsToken",
   async (userData, thunkAPI) => {
     try {
       const response = await Axios({
-        ...SummaryApi.getUserByID,
+        ...SummaryApi.getUserByToken,
       });
       return {
         message: response.data.message,
@@ -104,14 +104,12 @@ export const userDetailsbyID = createAsyncThunk(
         statusCode: error.status,
       });
     }
-  }
+  },
 );
 
 export const updateUserDetailsbyID = createAsyncThunk(
   "updateUserDetailsID",
   async (userData, thunkAPI) => {
-    console.log(userData);
-
     try {
       const response = await Axios({
         ...SummaryApi.updateUserByID,
@@ -136,11 +134,11 @@ export const updateUserDetailsbyID = createAsyncThunk(
         statusCode: error.status,
       });
     }
-  }
+  },
 );
 
 export const searchUsers = createAsyncThunk(
-  "seacrhUsers",
+  "searchUsers",
   async (query, thunkAPI) => {
     try {
       const response = await Axios({
@@ -160,90 +158,8 @@ export const searchUsers = createAsyncThunk(
         statusCode: error.status,
       });
     }
-  }
+  },
 );
-
-export const sendFirendRequest = createAsyncThunk(
-  "sendFirendRequest",
-  async (id, thunkAPI) => {
-    try {
-      const response = await Axios({
-        ...SummaryApi.sendFirendRequest,
-        data: {
-          user_id: id,
-        },
-      });
-      AxiosToast("success", response.data.message);
-      return {
-        message: response.data.message,
-        data: response.data.data,
-      };
-    } catch (error) {
-      console.log("catch");
-
-      const errorPayload = AxiosToast("", error);
-      return thunkAPI.rejectWithValue({
-        message: cleanErrorMessage(errorPayload.message),
-        statusCode: error.status,
-      });
-    }
-  }
-);
-
-export const removeFriendRequest = createAsyncThunk(
-  "removeFriendRequest",
-  async (id, thunkAPI) => {
-    try {
-      const response = await Axios({
-        ...SummaryApi.removeFirendRequest,
-        data: {
-          user_id: id,
-        },
-      });
-      AxiosToast("success", response.data.message);
-      return {
-        message: response.data.message,
-        data: response.data.data,
-      };
-    } catch (error) {
-      console.log("catch");
-
-      const errorPayload = AxiosToast("", error);
-      return thunkAPI.rejectWithValue({
-        message: cleanErrorMessage(errorPayload.message),
-        statusCode: error.status,
-      });
-    }
-  }
-);
-
-export const acceptFirendRequest = createAsyncThunk(
-  "acceptFirendRequest",
-  async (id, thunkAPI) => {
-    try {
-      const response = await Axios({
-        ...SummaryApi.acceptFriendRequest,
-        data: {
-          user_id: id,
-        },
-      });
-      AxiosToast("success", response.data.message);
-      return {
-        message: response.data.message,
-        data: response.data.data,
-      };
-    } catch (error) {
-      console.log("catch");
-
-      const errorPayload = AxiosToast("", error);
-      return thunkAPI.rejectWithValue({
-        message: cleanErrorMessage(errorPayload.message),
-        statusCode: error.status,
-      });
-    }
-  }
-);
-
 
 const initialValue = {
   token: null,
@@ -337,23 +253,23 @@ const userSlice = createSlice({
         state.statusCode = action.payload.statusCode;
         toast.success(action.payload.message || "Login Successful");
       })
-      .addCase(userDetailsbyID.pending, (state) => {
+      .addCase(userDetailsbyToken.pending, (state) => {
         state.isLoading = true; // Set loading state
         state.message = null; // Clear message
       })
-      .addCase(userDetailsbyID.rejected, (state, action) => {
+      .addCase(userDetailsbyToken.rejected, (state, action) => {
         state.isLoading = false;
         state.message =
           action.payload?.message || "Error fetching user details";
         state.statusCode = action.payload?.statusCode;
       })
-      .addCase(userDetailsbyID.fulfilled, (state, action) => {
+      .addCase(userDetailsbyToken.fulfilled, (state, action) => {
         state.isLoading = false;
         state.message = action.payload.message;
         state.statusCode = action.payload.statusCode;
         state.userDetails = action.payload.userDetails;
         toast.success(
-          action.payload.message || "User Details Fetched Successful"
+          action.payload.message || "User Details Fetched Successful",
         );
       })
       .addCase(updateUserDetailsbyID.pending, (state) => {
@@ -372,7 +288,7 @@ const userSlice = createSlice({
         state.statusCode = action.payload.statusCode;
         state.userDetails = action.payload.userDetails;
         toast.success(
-          action.payload.message || "User Details Updated Successful"
+          action.payload.message || "User Details Updated Successful",
         );
       });
   },

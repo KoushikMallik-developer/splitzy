@@ -34,7 +34,7 @@ const SummaryApi = {
     url: "/api/user/logout",
     method: "get",
   },
-  getUserByID: {
+  getUserByToken: {
     url: "/auth/api/v2/user-details",
     method: "get",
   },
@@ -46,17 +46,33 @@ const SummaryApi = {
     url: "/auth/api/v2/search-users",
     method: "post",
   },
-  sendFirendRequest: {
+  userDetailsbyID: {
+    url: "/auth/api/v2/user-details-by-id",
+    method: "post",
+  },
+  sendFriendRequest: {
     url: "/friends/api/v2/send-friend-request",
     method: "post",
   },
-  removeFirendRequest: {
+  removeFriendRequest: {
     url: "/friends/api/v2/remove-friend-request",
     method: "post",
   },
   acceptFriendRequest: {
     url: "/friends/api/v2/accept-friend",
     method: "post",
+  },
+  removeFriend: {
+    url: "/friends/api/v2/remove-friend",
+    method: "post",
+  },
+  getAllFriendRequests: {
+    url: "/friends/api/v2/my-received-friend-requests",
+    method: "get",
+  },
+  getAllFriends: {
+    url: "friends/api/v2/my-friends",
+    method: "get",
   },
 };
 

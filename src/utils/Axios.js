@@ -1,28 +1,28 @@
-import axios from 'axios'
-import { baseURL } from '../utils/SummaryApi'
+import axios from "axios";
+import { baseURL } from "../utils/SummaryApi";
 
 const Axios = axios.create({
-    baseURL: baseURL,
-    headers: {
-        'Content-Type': 'application/json',
-        // Add other common headers here, like Authorization if needed
-    },
-})
+  baseURL: baseURL,
+  headers: {
+    "Content-Type": "application/json",
+    // Add other common headers here, like Authorization if needed
+  },
+});
 
 //sending access token in the header
 Axios.interceptors.request.use(
-    async (config) => {
-        const accessToken = localStorage.getItem('accessToken')
+  async (config) => {
+    const accessToken = localStorage.getItem("accessToken");
 
-        if (accessToken) {
-            config.headers.Authorization = `Bearer ${accessToken}`
-        }
-        return config
-    },
-    (error) => {
-        return Promise.reject(error)
-    },
-)
+    if (accessToken) {
+      config.headers.Authorization = `Bearer ${accessToken}`;
+    }
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  },
+);
 
 //extend the life span of access token with
 // the help refresh
@@ -63,4 +63,4 @@ Axios.interceptors.request.use(
 //     }
 // }
 
-export default Axios
+export default Axios;

@@ -16,7 +16,7 @@ const ErrorMessage = ({ message, statusCode }) => {
     iconColor: "text-red-500",
     Icon: BsXCircle,
   };
-  
+
   const { containerClass, textClass, iconColor, Icon } = variant;
 
   useEffect(() => {

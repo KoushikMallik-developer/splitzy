@@ -1,10 +1,10 @@
 import React, { useState, useRef } from "react";
 import { useDispatch } from "react-redux";
 import {
-  sendFirendRequest,
+  sendFriendRequest,
   removeFriendRequest,
   acceptFirendRequest,
-} from "../store/userSlice";
+} from "../store/friendsSlice";
 import ClickOutside from "./ClickOutside";
 
 const RequestButton = ({ user }) => {
@@ -15,7 +15,7 @@ const RequestButton = ({ user }) => {
   const dropdownRef = useRef(null);
 
   const handleRequest = async () => {
-    const action = isRequested ? removeFriendRequest : sendFirendRequest;
+    const action = isRequested ? removeFriendRequest : sendFriendRequest;
     const result = await dispatch(action(user.id));
     if (result.meta.requestStatus === "fulfilled") {
       setIsRequested(!isRequested);

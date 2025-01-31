@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 
 function useLocalStorage(key, initialValue) {
   // State to store our value
@@ -21,7 +21,7 @@ function useLocalStorage(key, initialValue) {
     try {
       // Allow value to be a function so we have same API as useState
       const valueToStore =
-        typeof storedValue === 'function'
+        typeof storedValue === "function"
           ? storedValue(storedValue)
           : storedValue;
       // Save state
