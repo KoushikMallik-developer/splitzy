@@ -6,11 +6,9 @@ const GroupCard = ({ group }) => {
       <div className="p-6">
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center space-x-3">
-            <div
-              className={`${group.type === "home" ? "bg-blue-100" : "bg-green-100"} p-3 rounded-full`}
-            >
+            <div className={"bg-blue-100 p-3 rounded-full"}>
               <svg
-                className={`w-6 h-6 ${group.type === "home" ? "text-blue-600" : "text-green-600"}`}
+                className={"w-6 h-6 text-green-600"}
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"

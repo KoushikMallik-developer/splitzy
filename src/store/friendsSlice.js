@@ -158,6 +158,30 @@ export const getAllFriends = createAsyncThunk(
   }
 );
 
+export const searchFriend = createAsyncThunk(
+  "searchFriend",
+  async (query, thunkAPI) => {
+    try {
+      const response = await Axios({
+        ...SummaryApi.searchFriend,
+        data: {
+          keyword: query,
+        },
+      });
+      return {
+        message: response.data.message,
+        data: response.data.data,
+      };
+    } catch (error) {
+      const errorPayload = AxiosToast("error", error);
+      return thunkAPI.rejectWithValue({
+        message: cleanErrorMessage(errorPayload.message),
+        statusCode: error.status,
+      });
+    }
+  }
+);
+
 export const userDetailsByID = createAsyncThunk(
   "userDetailsByID",
   async (id, thunkAPI) => {
