@@ -71,7 +71,19 @@ const SummaryApi = {
     method: "get",
   },
   getAllFriends: {
-    url: "friends/api/v2/my-friends",
+    url: "/friends/api/v2/my-friends",
+    method: "get",
+  },
+  searchFriend: {
+    url: "/friends/api/v2/search-friend",
+    method: "post",
+  },
+  createGroup: {
+    url: "/groups/api/v2/add-group",
+    method: "post",
+  },
+  getGroupByUser: {
+    url: "/groups/api/v2/fetch-groups-by-user",
     method: "get",
   },
 };

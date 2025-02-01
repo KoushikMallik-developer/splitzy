@@ -6,7 +6,7 @@ import { convertDateString } from "../../utils/dateFormatter";
 
 const AccountDetails = () => {
   const dispatch = useDispatch();
-  const { userDetails, isLoading, message } = useSelector(
+  const { userDetails, isLoading } = useSelector(
     (state) => state.user,
   );
 

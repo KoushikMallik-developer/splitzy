@@ -1,46 +1,57 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import Loader from "../../components/Loader";
 import GroupCard from "../../components/Groups/GroupCard";
 import Modal from "../../components/Modal";
 import SearchBar from "../../components/Groups/SearchBar";
 import ActionButtons from "../../components/Groups/ActionButtons";
 import CreateGroupModalContent from "../../components/Groups/CreateGroupModalContent";
+import { createGroup, getGroupByUser } from "../../store/groupSlice.js";
 
 const GroupsDashboard = () => {
-  const initialGroups = [
-    {
-      id: 1,
-      name: "Roommates",
-      members: 4,
-      totalSpent: 12450,
-      yourShare: 3112,
-      memberAvatars: [1, 2, 3, 4],
-      type: "home",
-    },
-    {
-      id: 2,
-      name: "Weekend Trip",
-      members: 6,
-      totalSpent: 24800,
-      yourShare: 4133,
-      memberAvatars: [5, 6, 7],
-      remainingMembers: 3,
-      type: "travel",
-    },
-  ];
-
-  // State
-  const [groups] = useState(initialGroups);
+  const dispatch = useDispatch();
+  const [groups, setGroups] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [newGroupName, setNewGroupName] = useState("");
   const [selectedUsers, setSelectedUsers] = useState([]);
 
-  const handleCreateGroup = () => {
-    // Logic to create a new group
-    console.log("Creating group:", newGroupName, selectedUsers);
+  const handleCreateGroup = async () => {
+    const payload = {
+      name: newGroupName,
+      members: selectedUsers.map((user) => user.id),
+    };
+    await dispatch(createGroup(payload));
     setIsModalOpen(false);
   };
+
+  useEffect(() => {
+    // dispatch(getGroupByUser()).then((response) => {
+    //   // setGroups(response.payload.data);
+
+    // });
+    setGroups([
+      {
+        id: 1,
+        name: "Roommates",
+        members: 4,
+        totalSpent: 12450,
+        yourShare: 3112,
+        memberAvatars: [1, 2, 3, 4],
+        type: "home",
+      },
+      {
+        id: 2,
+        name: "Weekend Trip",
+        members: 6,
+        totalSpent: 24800,
+        yourShare: 4133,
+        memberAvatars: [5, 6, 7],
+        remainingMembers: 3,
+        type: "travel",
+      },
+    ]);
+  }, []);
 
   return (
     <section className="p-6">

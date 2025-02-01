@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useMemo } from "react";
 import { useDispatch } from "react-redux";
 import debounce from "lodash.debounce";
-import { searchUsers } from "../store/userSlice";
-import NameToAvatar from "./NameToAvatar";
-import RequestButton from "./RequestButton";
+import { searchUsers } from "../../store/userSlice";
+import NameToAvatar from "../NameToAvatar";
+import RequestButton from "../RequestButton";
 import { useNavigate } from "react-router-dom";
-import Modal from "./Modal"; // Import the Modal component
+import Modal from "../Modal"; // Import the Modal component
 
 const SearchInput = ({ searchTerm, setSearchTerm }) => (
   <input
