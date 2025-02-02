@@ -86,6 +86,10 @@ const SummaryApi = {
     url: "/groups/api/v2/fetch-groups-by-user",
     method: "get",
   },
+  deleteGroup: {
+    url: "/groups/api/v2/remove-group",
+    method: "post",
+  },
 };
 
 export default SummaryApi;

@@ -6,7 +6,11 @@ import Modal from "../../components/Modal";
 import SearchBar from "../../components/Groups/SearchBar";
 import ActionButtons from "../../components/Groups/ActionButtons";
 import CreateGroupModalContent from "../../components/Groups/CreateGroupModalContent";
-import { createGroup, getGroupByUser } from "../../store/groupSlice.js";
+import {
+  createGroup,
+  deleteGroup,
+  getGroupByUser,
+} from "../../store/groupSlice.js";
 
 const GroupsDashboard = () => {
   const dispatch = useDispatch();
@@ -25,32 +29,26 @@ const GroupsDashboard = () => {
     setIsModalOpen(false);
   };
 
-  useEffect(() => {
-    // dispatch(getGroupByUser()).then((response) => {
-    //   // setGroups(response.payload.data);
+  const handleDelete = async (groupId) => {
+    try {
+      console.log(groupId);
+      await dispatch(deleteGroup(groupId));
+      fetchGroupsByUser();
+    } catch (error) {
+      console.error("Failed to delete group", error);
+    }
+  };
 
-    // });
-    setGroups([
-      {
-        id: 1,
-        name: "Roommates",
-        members: 4,
-        totalSpent: 12450,
-        yourShare: 3112,
-        memberAvatars: [1, 2, 3, 4],
-        type: "home",
-      },
-      {
-        id: 2,
-        name: "Weekend Trip",
-        members: 6,
-        totalSpent: 24800,
-        yourShare: 4133,
-        memberAvatars: [5, 6, 7],
-        remainingMembers: 3,
-        type: "travel",
-      },
-    ]);
+  const fetchGroupsByUser = () => {
+    setIsLoading(true);
+    dispatch(getGroupByUser()).then((response) => {
+      setGroups(response.payload.data);
+      setIsLoading(false);
+    });
+  };
+
+  useEffect(() => {
+    fetchGroupsByUser();
   }, []);
 
   return (
@@ -69,9 +67,10 @@ const GroupsDashboard = () => {
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {groups.map((group) => (
-            <GroupCard key={group.id} group={group} />
-          ))}
+          {groups.length > 0 &&
+            groups.map((group) => (
+              <GroupCard key={group.id} group={group} onDelete={handleDelete} />
+            ))}
         </div>
       )}
 

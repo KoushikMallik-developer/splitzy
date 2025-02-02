@@ -51,3 +51,27 @@ export const getGroupByUser = createAsyncThunk(
     }
   }
 );
+
+export const deleteGroup = createAsyncThunk(
+  "deleteGroup",
+  async (id, thunkAPI) => {
+    try {
+      const response = await Axios({
+        ...SummaryApi.deleteGroup,
+        data: { group_id: id },
+      });
+      AxiosToast("success", response.data.message);
+      return {
+        message: response.data.message,
+        data: response.data.data,
+      };
+    } catch (error) {
+      console.log("catch");
+      const errorPayload = AxiosToast("", error);
+      return thunkAPI.rejectWithValue({
+        message: cleanErrorMessage(errorPayload.message),
+        statusCode: error.status,
+      });
+    }
+  }
+);
