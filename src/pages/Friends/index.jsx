@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import FriendCard from "../../components/Friends/FriendsCard";
-import InviteModal from "../../components/InviteModal";
+import InviteModal from "../../components/Friends/InviteModal";
 import { useDispatch } from "react-redux";
 import {
   acceptFirendRequest,

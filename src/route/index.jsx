@@ -4,7 +4,6 @@ import React, { lazy } from "react";
 import DefaultLayout from "../layouts/Default/index.jsx";
 import AuthLayout from "../layouts/Auth";
 import ProtectedRoute from "../layouts/Protected/index.jsx";
-const UserDetails = lazy(() => import("../pages/UserDetails/index.jsx"));
 const Analytics = lazy(() =>
   withMinDelay(import("../pages/Analytics/index.jsx"))
 );
@@ -22,7 +21,9 @@ const DashboardPage = lazy(() =>
 );
 const Transaction = lazy(() => withMinDelay(import("../pages/Transaction")));
 const Groups = lazy(() => withMinDelay(import("../pages/Groups")));
+const GroupDetails = lazy(() => import("../pages/GroupDetails/index.jsx"));
 const Friends = lazy(() => withMinDelay(import("../pages/Friends")));
+const UserDetails = lazy(() => import("../pages/UserDetails/index.jsx"));
 
 const withMinDelay = async (importPromise) => {
   return Promise.all([
@@ -91,6 +92,14 @@ const router = createBrowserRouter([
             element: (
               <ProtectedRoute>
                 <Groups />
+              </ProtectedRoute>
+            ),
+          },
+          {
+            path: "group/:id",
+            element: (
+              <ProtectedRoute>
+                <GroupDetails />
               </ProtectedRoute>
             ),
           },
