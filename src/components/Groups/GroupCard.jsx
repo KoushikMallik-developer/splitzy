@@ -1,12 +1,18 @@
 import React, { useState, useRef } from "react";
 import ClickOutside from "../ClickOutside";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const GroupCard = ({ group, onDelete }) => {
+  const navigate = useNavigate();
+  const { userDetails } = useSelector((state) => state.user);
   const [showOptions, setShowOptions] = useState(false);
   const optionsRef = useRef(null);
 
   const getCreatorBalances = (group) => {
-    return group.balances[group.creator.id] ?? null;
+    return group.balances[userDetails.id]
+      ? group.balances[userDetails.id].balance
+      : 0;
   };
 
   const renderGroupMembers = (members) => {
@@ -105,7 +111,7 @@ const GroupCard = ({ group, onDelete }) => {
             </span>
           </div>
           <div className="flex justify-between items-center">
-            <span className="text-sm text-gray-600">Your Share</span>
+            <span className="text-sm text-gray-600">Your Balance</span>
             <span className={"text-sm font-medium text-green-600"}>
               ₹{getCreatorBalances(group) || 0}
             </span>
@@ -116,7 +122,10 @@ const GroupCard = ({ group, onDelete }) => {
         </div>
       </div>
       <div className="px-6 py-3 bg-gray-50 border-t border-gray-200">
-        <button className="w-full text-indigo-600 hover:text-indigo-700 text-sm font-medium">
+        <button
+          className="w-full text-indigo-600 hover:text-indigo-700 text-sm font-medium"
+          onClick={() => navigate(`/group/${group.id}`)}
+        >
           View Details
         </button>
       </div>
