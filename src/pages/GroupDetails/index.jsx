@@ -5,7 +5,7 @@ import GroupMembers from "../../components/GroupDetails/GroupMembers";
 import RecentExpenses from "../../components/GroupDetails/RecentExpenses";
 import AddExpenseModal from "../../components/GroupDetails/AddExpenseModal";
 import Loader from "../../components/Loader";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getGroupDetailsById } from "../../store/groupSlice";
 import { convertDateToReadableString } from "../../utils/dateFormatter";
@@ -13,6 +13,7 @@ import { convertDateToReadableString } from "../../utils/dateFormatter";
 const GroupDetails = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
+  const { userDetails } = useSelector((state) => state.user);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [expenseForm, setExpenseForm] = useState({
     description: "",
@@ -75,8 +76,13 @@ const GroupDetails = () => {
             Add Expense
           </button>
         </div>
-        <FinancialSummary />
-        <GroupMembers />
+        <FinancialSummary
+          totalSpent={group.total_spent}
+          stats={
+            group.balances[userDetails.id] && group.balances[userDetails.id]
+          }
+        />
+        <GroupMembers members={group.members} />
         <RecentExpenses />
         {isModalOpen && (
           <AddExpenseModal
