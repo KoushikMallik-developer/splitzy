@@ -99,3 +99,27 @@ export const deleteGroup = createAsyncThunk(
     }
   }
 );
+
+export const getRecentExpensesByGroup = createAsyncThunk(
+  "getRecentExpensesByGroup",
+  async (id, thunkAPI) => {
+    try {
+      const response = await Axios({
+        ...SummaryApi.getRecentExpensesByGroup,
+        data: { group_id: id, count: 3 },
+      });
+      AxiosToast("success", response.data.message);
+      return {
+        message: response.data.message,
+        data: response.data.data,
+      };
+    } catch (error) {
+      console.log("catch");
+      const errorPayload = AxiosToast("", error);
+      return thunkAPI.rejectWithValue({
+        message: cleanErrorMessage(errorPayload.message),
+        statusCode: error.status,
+      });
+    }
+  }
+);

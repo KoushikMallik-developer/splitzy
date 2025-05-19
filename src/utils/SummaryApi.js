@@ -93,6 +93,10 @@ const SummaryApi = {
   groupDetailsById:{
     url:"/groups/api/v2/fetch-group-details-by-id",
     method:"post",
+  },
+  getRecentExpensesByGroup:{
+    url:"/eapp/api/v2/get-group-expenses/",
+    method:"post",
   }
 };
 

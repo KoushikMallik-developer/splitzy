@@ -1,8 +1,8 @@
 import React from "react";
 import { FaUsers } from "react-icons/fa";
 
-const RecentExpenses = () => {
-  const expenses = [
+const RecentExpenses = ({ expenses }) => {
+  const expensess = [
     {
       title: "Monthly Rent",
       amount: "$800.00",
@@ -24,7 +24,7 @@ const RecentExpenses = () => {
         <button className="text-blue-600 text-sm font-medium">View All</button>
       </div>
       <div className="divide-y divide-gray-200">
-        {expenses.map((expense, index) => (
+        {expensess.map((expense, index) => (
           <div key={index} className="p-4 hover:bg-gray-50">
             <div className="flex justify-between items-start mb-2">
               <div>

@@ -7,7 +7,10 @@ import AddExpenseModal from "../../components/GroupDetails/AddExpenseModal";
 import Loader from "../../components/Loader";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { getGroupDetailsById } from "../../store/groupSlice";
+import {
+  getGroupDetailsById,
+  getRecentExpensesByGroup,
+} from "../../store/groupSlice";
 import { convertDateToReadableString } from "../../utils/dateFormatter";
 
 const GroupDetails = () => {
@@ -22,6 +25,7 @@ const GroupDetails = () => {
     paidBy: "You",
   });
   const [group, setGroup] = useState();
+  const [recentExpenses, setRecentExpenses] = useState();
   const [isLoading, setIsLoading] = useState(true);
 
   const handleInputChange = (e) => {
@@ -46,8 +50,17 @@ const GroupDetails = () => {
     });
   };
 
+  const fetchRecentExpenses = () => {
+    setIsLoading(true);
+    dispatch(getRecentExpensesByGroup(id)).then((response) => {
+      setRecentExpenses(response.payload.data);
+      setIsLoading(false);
+    });
+  };
+
   useEffect(() => {
     fetchGroupDetails();
+    fetchRecentExpenses();
   }, []);
 
   if (isLoading) {
@@ -83,7 +96,7 @@ const GroupDetails = () => {
           }
         />
         <GroupMembers members={group.members} />
-        <RecentExpenses />
+        <RecentExpenses expenses={recentExpenses} />
         {isModalOpen && (
           <AddExpenseModal
             expenseForm={expenseForm}
